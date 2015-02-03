@@ -100,92 +100,74 @@
                 </div>
             </div>
         </div>
-        <div class="four wide column" style="margin-bottom: 30px">
+        <div class="five wide column" style="margin-bottom: 30px">
             <div class="ui segment yellow">
-                <h6 class="ui block header right aligned inverted">
-                    <i class="shop icon"></i>CART
-                </h6>
+                <div class="ui segment inverted">
+                    <i class="shop icon large"></i>
+                    <span class="ui orange circular label mini">
+                        <a class="ui black circular label mini">3</a> cart items
+                    </span>
+
+                </div>
                 <div class="ui segment black" id="cartItems">
-                    <div class="ui divided items">
+                    <div class="ui divided list">
                         <div class="item">
-                            <div class="ui image tiny">
-                                <img src="images/products/milktea.jpg">
-                            </div>
-                            <div class="middle aligned content">
-                                <a class="header">12 Years a Slave</a>
-                                <div class="meta">
-                                    <span class="cinema">Union Square 14</span>
+                            <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
+                            <img class="ui avatar image" src="images/products/caramel.jpg">
+                            <div class="content">
+                                <div class="header">
+                                    <div class="ui vertical animated button tiny">
+                                        <div class="hidden content"><i class="edit icon"></i></div>
+                                        <div class="visible content">
+                                            2000x
+                                        </div>
+                                    </div>
+                                    <span>Milky Choco Loco</span>
                                 </div>
+                                <div class="description">@ 170 / kg </div>
                             </div>
+
                         </div>
                         <div class="item">
-                            <div class="ui image tiny">
-                                <img src="images/products/milktea.jpg" style="width: 80px !important; height: 80px !important;">
-                            </div>
-                            <div class="middle aligned content">
-                                <a class="header">12 Years a Slave</a>
-                                <div class="meta">
-                                    <span class="cinema">Union Square 14</span>
+                            <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
+                            <img class="ui avatar image" src="images/products/caramel.jpg">
+                            <div class="content">
+                                <div class="header">
+                                    <div class="ui vertical animated button tiny">
+                                        <div class="hidden content"><i class="shop icon"></i></div>
+                                        <div class="visible content">
+                                            2000x
+                                        </div>
+                                    </div><span>Milky Choco Loco</span>
                                 </div>
+                                <div class="description">@ 170 / kg </div>
                             </div>
+
                         </div>
                         <div class="item">
-                            <div class="ui image tiny">
-                                <img src="images/products/milktea.jpg" style="width: 80px !important; height: 80px !important;">
-                            </div>
-                            <div class="middle aligned content">
-                                <a class="header">12 Years a Slave</a>
-                                <div class="meta">
-                                    <span class="cinema">Union Square 14</span>
+                            <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
+                            <img class="ui avatar image" src="images/products/caramel.jpg">
+                            <div class="content">
+                                <div class="header">
+                                    <div class="ui vertical animated button tiny">
+                                        <div class="hidden content"><i class="shop icon"></i></div>
+                                        <div class="visible content">
+                                            2000x
+                                        </div>
+                                    </div><span>Milky Choco Loco</span>
                                 </div>
+                                <div class="description">@ 170 / kg </div>
                             </div>
-                        </div>
-                        <div class="item">
-                            <div class="ui image tiny">
-                                <img src="images/products/milktea.jpg" style="width: 80px !important; height: 80px !important;">
-                            </div>
-                            <div class="middle aligned content">
-                                <a class="header">12 Years a Slave</a>
-                                <div class="meta">
-                                    <span class="cinema">Union Square 14</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="ui image tiny">
-                                <img src="images/products/milktea.jpg" style="width: 80px !important; height: 80px !important;">
-                            </div>
-                            <div class="middle aligned content">
-                                <a class="header">12 Years a Slave</a>
-                                <div class="meta">
-                                    <span class="cinema">Union Square 14</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="ui image tiny">
-                                <img src="images/products/milktea.jpg" style="width: 80px !important; height: 80px !important;">
-                            </div>
-                            <div class="middle aligned content">
-                                <a class="header">12 Years a Slave</a>
-                                <div class="meta">
-                                    <span class="cinema">Union Square 14</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="ui image tiny">
-                                <img src="images/products/milktea.jpg" style="width: 80px !important; height: 80px !important;">
-                            </div>
-                            <div class="middle aligned content">
-                                <a class="header">12 Years a Slave</a>
-                                <div class="meta">
-                                    <span class="cinema">Union Square 14</span>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
+                <h3 class="ui right floated header green">
+                    ₱3000.00
+                </h3>
+                <h4 class="ui left floated header">
+                    TOTAL:
+                </h4>
             </div>
         </div>
         <div class="four wide column">
@@ -241,7 +223,7 @@
                 <div class="content" align="center">
                     <div class="center">
                         <div class="ui animated fade button inverted yellow">
-                            <div class="visible content">$#:data.product_price#</div>
+                            <div class="visible content">₱#:data.product_price#</div>
                             <div class="hidden content">
                                 Add to Cart
                             </div>
