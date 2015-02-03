@@ -1,0 +1,63 @@
+html, body{
+    /*overflow: hidden;*/
+    background-color: rgba(207, 174, 123, 0.18);
+    height: 100%;
+}
+
+.menuPage{
+    background-color: rgba(207, 174, 123, 0.18);
+
+}
+
+.dn {display: none}
+
+#categoryButtons div.button {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.darklabel{
+    position: relative;
+    height: 0px;
+    top: -18px;
+}
+
+.darklabel .thelabel{
+    background: #000000;
+    opacity: 0.8;
+    height: 18px;
+}
+
+.darklabel .thedescription{
+    position: relative;
+    top: -17px;
+    text-align: center;
+    color: #f5f5f5;
+    font-size: 12px;
+}
+
+#productlistView {
+    padding: 10px 5px;
+    margin-bottom: -1px;
+    width: 365px;
+}
+.productPs {
+    float: left;
+    position: relative;
+    margin: 4px 4px;
+    padding: 0;
+    width: 112px;
+}
+
+
+.k-listview:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.productPs .button{
+    margin-left: 3px;
+}
