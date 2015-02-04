@@ -60,31 +60,37 @@
                         Or
                     </div>
                     <div align="right" style="width: 150px; float: left" id="categoryButtons">
-                        <div class="ui yellow animated button">
+                        <div class="ui animated button">
                             <div class="visible content">All Products</div>
                             <div class="hidden content">
                                 <i class="right arrow icon"></i>
                             </div>
                         </div>
-                        <div class="ui yellow animated button">
+                        <div class="ui animated button">
+                            <div class="visible content">Featured Products</div>
+                            <div class="hidden content">
+                                <i class="right arrow icon"></i>
+                            </div>
+                        </div>
+                        <div class="ui animated button">
                             <div class="visible content">Machines</div>
                             <div class="hidden content">
                                 <i class="right arrow icon"></i>
                             </div>
                         </div>
-                        <div class="ui yellow animated button">
+                        <div class="ui animated button">
                             <div class="visible content">Powders</div>
                             <div class="hidden content">
                                 <i class="right arrow icon"></i>
                             </div>
                         </div>
-                        <div class="ui yellow animated button">
+                        <div class="ui animated button">
                             <div class="visible content">Parts</div>
                             <div class="hidden content">
                                 <i class="right arrow icon"></i>
                             </div>
                         </div>
-                        <div class="ui yellow animated button">
+                        <div class="ui animated button">
                             <div class="visible content">Misc</div>
                             <div class="hidden content">
                                 <i class="right arrow icon"></i>
@@ -103,8 +109,8 @@
         <div class="five wide column" style="margin-bottom: 30px">
             <div class="ui segment yellow">
                 <div class="ui segment inverted">
-                    <i class="shop icon large"></i>
-                    <span class="ui orange circular label mini">
+                    <i class="shop icon large"></i> Shopping Cart
+                    <span class="ui orange circular label mini" style="float: right">
                         <a class="ui black circular label mini">3</a> cart items
                     </span>
 
@@ -113,7 +119,10 @@
                     <div class="ui divided list">
                         <div class="item">
                             <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
-                            <img class="ui avatar image" src="images/products/caramel.jpg">
+                            <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
+                                <img class="ui avatar image visible content" src="images/products/caramel.jpg">
+                                <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
+                            </div>
                             <div class="content">
                                 <div class="header">
                                     <div class="ui vertical animated button tiny">
@@ -121,53 +130,52 @@
                                         <div class="visible content">
                                             2000x
                                         </div>
-                                    </div>
-                                    <span>Milky Choco Loco</span>
+                                    </div><span>Milky Choco Loco</span>
                                 </div>
-                                <div class="description">@ 170 / kg </div>
+                                <div class="description">@ ₱170 / kg </div>
                             </div>
-
                         </div>
                         <div class="item">
                             <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
-                            <img class="ui avatar image" src="images/products/caramel.jpg">
+                            <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
+                                <img class="ui avatar image visible content" src="images/products/caramel.jpg">
+                                <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
+                            </div>
                             <div class="content">
                                 <div class="header">
                                     <div class="ui vertical animated button tiny">
-                                        <div class="hidden content"><i class="shop icon"></i></div>
+                                        <div class="hidden content"><i class="edit icon"></i></div>
                                         <div class="visible content">
                                             2000x
                                         </div>
                                     </div><span>Milky Choco Loco</span>
                                 </div>
-                                <div class="description">@ 170 / kg </div>
+                                <div class="description">@ ₱170 / kg </div>
                             </div>
-
                         </div>
                         <div class="item">
                             <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
-                            <img class="ui avatar image" src="images/products/caramel.jpg">
+                            <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
+                                <img class="ui avatar image visible content" src="images/products/caramel.jpg">
+                                <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
+                            </div>
                             <div class="content">
                                 <div class="header">
                                     <div class="ui vertical animated button tiny">
-                                        <div class="hidden content"><i class="shop icon"></i></div>
+                                        <div class="hidden content"><i class="edit icon"></i></div>
                                         <div class="visible content">
                                             2000x
                                         </div>
                                     </div><span>Milky Choco Loco</span>
                                 </div>
-                                <div class="description">@ 170 / kg </div>
+                                <div class="description">@ ₱170 / kg </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-                <h3 class="ui right floated header green">
-                    ₱3000.00
-                </h3>
-                <h4 class="ui left floated header">
-                    TOTAL:
-                </h4>
+                <div class="ui label huge yellow" style="float: right">
+                    <i class="money icon"></i> ₱2300.00
+                </div>
             </div>
         </div>
         <div class="four wide column">

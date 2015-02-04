@@ -51,6 +51,12 @@ $(document).ready(function() {
 
         $("#pager").kendoPager({
             dataSource: productsDs2,
+            buttonCount: 2,
+            pageSizes: [9, 12, 15, 18, 21, 24],
+            info: false,
+            messages: {
+                itemsPerPage: "items"
+            },
             change: function() {
                 $('.dimmer').dimmer({
                     on: 'hover'
