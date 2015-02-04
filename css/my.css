@@ -61,3 +61,7 @@ html, body{
 .productPs .button{
     margin-left: 3px;
 }
+
+#checkoutAccordion .content{
+    height: 370px;
+}

@@ -21,6 +21,7 @@
     <!-- JS BLOCK -->
     <script src="js/menuBlock.js"></script>
     <script src="js/productSearchBlock.js"></script>
+    <script src="js/checkoutBlock.js"></script>
 </head>
 <body>
 <div class="ui menu pointing inverted" id="mainMenu">
@@ -55,7 +56,7 @@
         <div class="seven wide column">
             <div class="ui segment yellow" style="height: 100%">
                 <div>
-                    <input id="productSearch"/>
+                    <input id="productSearch" title="Product Search">
                     <div class="ui horizontal divider">
                         Or
                     </div>
@@ -118,7 +119,7 @@
                 <div class="ui segment black" id="cartItems">
                     <div class="ui divided list">
                         <div class="item">
-                            <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
+                            <div class="right floated compact ui"><b class="ui right ribbon label">₱300.00</b></div>
                             <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
                                 <img class="ui avatar image visible content" src="images/products/caramel.jpg">
                                 <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
@@ -136,7 +137,7 @@
                             </div>
                         </div>
                         <div class="item">
-                            <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
+                            <div class="right floated compact ui"><b class="ui right ribbon label">₱300.00</b></div>
                             <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
                                 <img class="ui avatar image visible content" src="images/products/caramel.jpg">
                                 <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
@@ -154,7 +155,7 @@
                             </div>
                         </div>
                         <div class="item">
-                            <div class="right floated compact ui"><a class="ui right ribbon label yellow">₱300.00</a></div>
+                            <div class="right floated compact ui"><b class="ui right ribbon label">₱300.00</b></div>
                             <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
                                 <img class="ui avatar image visible content" src="images/products/caramel.jpg">
                                 <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
@@ -173,14 +174,77 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui label huge yellow" style="float: right">
-                    <i class="money icon"></i> ₱2300.00
+                <div class="ui label huge" style="float: right">
+                    <i class="money icon large"></i> ₱2300.00
                 </div>
             </div>
         </div>
         <div class="four wide column">
-            <div class="ui segment yellow" style="height: 84vh; ">
-                <p></p>
+            <div class="ui segment yellow">
+                <h4 class="ui dividing header">Checkout</h4>
+                <div class="ui top right attached label green circular"><i class="thumbs outline up icon"></i>Paid</div>
+                <div class="ui styled accordion" id="checkoutAccordion">
+                    <div class="active title">
+                        <i class="dropdown icon"></i>
+                        <i class="user icon"></i>Client Information
+                    </div>
+                    <div class="active content">
+                        <div class="ui items">
+                            <div class="item">
+                                <a class="ui tiny image">
+                                    <img src="images/profile/stock.jpg">
+                                </a>
+                                <div class="content">
+                                    <a class="header tiny">Stevie Feliciano Jr.</a>
+                                    <div class="meta">
+                                        <span class="category">Barista Choi</span>
+                                    </div>
+                                    <div class="description fixed bottom">
+                                        <a>View</a> | <a>Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui celled list">
+                            <div class="item">
+                                <img class="ui avatar image" src="/images/avatar/small/helen.jpg">
+                                <div class="content">
+                                    <div class="header">Snickerdoodle</div>
+                                    An excellent companion
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
+                                <div class="content">
+                                    <div class="header">Poodle</div>
+                                    A poodle, its pretty basic
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
+                                <div class="content">
+                                    <div class="header">Paulo</div>
+                                    He's also a dog
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        <i class="configure icon"></i>Extended Options
+                    </div>
+                    <div class="content">
+                        <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+                    </div>
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        <i class="payment icon"></i>Payment
+                    </div>
+                    <div class="content">
+                        <p>Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
+                        <p>A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -217,7 +281,7 @@
                 <div class="middle aligned content">
                     <a class="header">#:data.product_name#</a>
                     <div class="meta">
-                        <div class=""><a class="ui #: colorLevel(data.product_stock) # label">#: data.product_stock #</a> #: add_S(data.product_unit_name, data.product_stock) # left <a class="ui label tag right floated yellow large">₱ #: data.product_price #</a></div>
+                        <div class=""><a class="ui #: colorLevel(data.product_stock) # label">#: data.product_stock #</a> #: add_S(data.product_unit_name, data.product_stock) # left <a class="ui label tag right floated large">₱ #: data.product_price #</a></div>
                     </div>
                 </div>
             </div>
