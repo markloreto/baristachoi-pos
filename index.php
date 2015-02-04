@@ -28,7 +28,7 @@
     <a class="active item">
         <i class="dashboard icon"></i> Dashboard
     </a>
-    <a class="item">
+    <a class="item" onclick="toggleFullScreen()">
         <i class="desktop icon"></i> Point of Sale
     </a>
     <div class="right menu">
@@ -199,7 +199,7 @@
                                     <div class="meta">
                                         <span class="category">Barista Choi</span>
                                     </div>
-                                    <div class="description fixed bottom">
+                                    <div class="description">
                                         <a>View</a> | <a>Edit</a>
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@
                         </div>
                         <div class="ui celled list">
                             <div class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/helen.jpg">
+                                <i class="thumbs outline up icon small circular green inverted large"></i>
                                 <div class="content">
                                     <div class="header">Snickerdoodle</div>
                                     An excellent companion
@@ -314,6 +314,67 @@
 </script>
 
 <script>
+    var isFullScr = false;
+    function isFullScreen() {
+        isFullScr = true
+        console.log(isFullScr)
+    }
+
+    function notFullScreen() {
+        isFullScr = false;
+        if($("#POSPage").hasClass("visible")){
+            $("#mainMenu a:first").click()
+        }
+        console.log(isFullScr)
+    }
+    document.addEventListener("fullscreenchange", function () {
+        if (document.fullscreen) {
+            isFullScreen();
+        } else {
+            notFullScreen();
+        }
+    }, false);
+
+    document.addEventListener("mozfullscreenchange", function () {
+        if (document.mozFullScreen) {
+            isFullScreen();
+        } else {
+            notFullScreen();
+        }
+    }, false);
+
+    document.addEventListener("webkitfullscreenchange", function () {
+        if (document.webkitIsFullScreen) {
+            isFullScreen();
+        } else {
+            notFullScreen();
+        }
+    }, false);
+
+    function toggleFullScreen() {
+        if(!isFullScr){
+            if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+                (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+                if (document.documentElement.requestFullScreen) {
+                    document.documentElement.requestFullScreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullScreen) {
+                    document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.cancelFullScreen) {
+                    document.cancelFullScreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                }
+            }
+        }
+
+    }
+
     $(function() {
 
 
