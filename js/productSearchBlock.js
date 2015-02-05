@@ -20,7 +20,7 @@ $(document).ready(function() {
     });
 
     var productsDs2 = new kendo.data.DataSource({
-        pageSize: 9,
+        pageSize: 12,
 
         transport: {
             read: {

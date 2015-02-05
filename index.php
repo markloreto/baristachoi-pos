@@ -206,27 +206,34 @@
                             </div>
                         </div>
                         <div class="ui celled list">
-                            <div class="item">
-                                <i class="thumbs outline up icon small circular green inverted large"></i>
+                            <a class="item ">
+                                <i class="thumbs outline down icon small circular red inverted large"></i>
                                 <div class="content">
-                                    <div class="header">Snickerdoodle</div>
-                                    An excellent companion
+                                    <div class="header"><span style="color: red">3</span> issues needs to resolve</div>
+
+                                    <div class="ui text shape">
+                                        <div class="sides">
+                                            <div class="active ui side">address is empty</div>
+                                            <div class="ui side">Client contact is empty</div>
+                                            <div class="ui side">Update Information</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="item">
+                            </a>
+                            <a class="item">
                                 <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
                                 <div class="content">
                                     <div class="header">Poodle</div>
                                     A poodle, its pretty basic
                                 </div>
-                            </div>
-                            <div class="item">
+                            </a>
+                            <a class="item">
                                 <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
                                 <div class="content">
                                     <div class="header">Paulo</div>
                                     He's also a dog
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="title">
@@ -376,11 +383,10 @@
     }
 
     $(function() {
-
-
-
-
-
+        $('.shape').shape();
+        setInterval(function(){
+            $('.shape').shape('flip up');
+        },4000)
     });
 </script>
 
