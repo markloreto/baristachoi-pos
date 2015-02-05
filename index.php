@@ -182,13 +182,13 @@
         <div class="four wide column">
             <div class="ui segment yellow">
                 <h4 class="ui dividing header">Checkout</h4>
-                <div class="ui top right attached label green circular"><i class="thumbs outline up icon"></i>Paid</div>
                 <div class="ui styled accordion" id="checkoutAccordion">
                     <div class="active title">
                         <i class="dropdown icon"></i>
                         <i class="user icon"></i>Client Information
                     </div>
                     <div class="active content">
+                        <input id="userSearch" title="Product Search">
                         <div class="ui items">
                             <div class="item">
                                 <a class="ui tiny image">
@@ -213,7 +213,7 @@
 
                                     <div class="ui text shape">
                                         <div class="sides">
-                                            <div class="active ui side">address is empty</div>
+                                            <div class="active ui side">Address is empty</div>
                                             <div class="ui side">Client contact is empty</div>
                                             <div class="ui side">Update Information</div>
                                         </div>
@@ -221,17 +221,17 @@
                                 </div>
                             </a>
                             <a class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
+                                <i class="announcement red outline icon small circular inverted large"></i>
                                 <div class="content">
-                                    <div class="header">Poodle</div>
-                                    A poodle, its pretty basic
-                                </div>
-                            </a>
-                            <a class="item">
-                                <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
-                                <div class="content">
-                                    <div class="header">Paulo</div>
-                                    He's also a dog
+                                    <div class="header"><span style="color: red">4</span> active reminders</div>
+                                    <div class="ui text shape">
+                                        <div class="sides">
+                                            <div class="active ui side">Inform about plastic</div>
+                                            <div class="ui side">Give Ecobag</div>
+                                            <div class="ui side">Inform new Flavor: Choco Brown</div>
+                                            <div class="ui side">Inform Branch Close</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -293,6 +293,40 @@
                 </div>
             </div>
         </div>
+</script>
+
+<script type="text/x-kendo-template" id="userSearchTpl">
+    <div class="ui divided items">
+        <div class="item">
+            <div class="ui tiny image bordered">
+                <img src="#:data.user_photo #" />
+                <div align="center">Barista Choi</div>
+            </div>
+            <div class="middle aligned content">
+                <a class="header">#:data.user_name#</a>
+                <div class="ui divided list" style="position: relative; top: -5px">
+                    <div class="item">
+                        <i class="home icon"></i>
+                        <div class="content">
+                            <div class="meta">#:data.user_barangay #</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="call square icon"></i>
+                        <div class="content">
+                            <div class="meta">#:data.user_contact #</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="star icon"></i>
+                        <div class="content">
+                            <div class="meta">#:data.user_status #</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </script>
 
 <script type="text/x-kendo-template" id="productTemplate">
