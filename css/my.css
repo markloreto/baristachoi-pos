@@ -39,14 +39,28 @@ html, body{
 #productlistView {
     padding: 10px 5px;
     margin-bottom: -1px;
-    width: 365px;
+
 }
+
+#productlistView {
+    border-style: none;
+}
+
 .productPs {
     float: left;
     position: relative;
     margin: 4px 4px;
     padding: 0;
     width: 112px;
+}
+
+#productListPager {
+    border: none;
+    background: none;
+}
+
+#productListPager .k-pager-sizes {
+    float: right;
 }
 
 

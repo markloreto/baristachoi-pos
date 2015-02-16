@@ -41,26 +41,23 @@ $(document).ready(function() {
     productsDs2.fetch(function(){
         $("#productlistView").kendoListView({
             dataSource: productsDs2,
-            template: kendo.template($("#productTemplate").html())
+            template: kendo.template($("#productTemplate").html()),
+            dataBound: function() {
+                setTimeout(function(){
+                    $('.dimmer').dimmer({
+                        on: 'hover'
+                    })
+                },100);
+            }
         });
-        setTimeout(function(){
-            $('.dimmer').dimmer({
-                on: 'hover'
-            })
-        },1000);
 
-        $("#pager").kendoPager({
+        $("#productListPager").kendoPager({
             dataSource: productsDs2,
-            buttonCount: 2,
+            buttonCount: 3,
             pageSizes: [9, 12, 15, 18, 21, 24],
             info: false,
             messages: {
                 itemsPerPage: "items"
-            },
-            change: function() {
-                $('.dimmer').dimmer({
-                    on: 'hover'
-                })
             }
         });
 

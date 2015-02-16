@@ -60,49 +60,51 @@
                     <div class="ui horizontal divider">
                         Or
                     </div>
-                    <div align="right" style="width: 150px; float: left" id="categoryButtons">
-                        <div class="ui animated button">
-                            <div class="visible content">All Products</div>
-                            <div class="hidden content">
-                                <i class="right arrow icon"></i>
+                    <div>
+                        <div align="right" style="float: left; width: 28%" id="categoryButtons">
+                            <div class="ui animated button">
+                                <div class="visible content">All Products</div>
+                                <div class="hidden content">
+                                    <i class="right arrow icon"></i>
+                                </div>
+                            </div>
+                            <div class="ui animated button">
+                                <div class="visible content">Featured Products</div>
+                                <div class="hidden content">
+                                    <i class="right arrow icon"></i>
+                                </div>
+                            </div>
+                            <div class="ui animated button">
+                                <div class="visible content">Machines</div>
+                                <div class="hidden content">
+                                    <i class="right arrow icon"></i>
+                                </div>
+                            </div>
+                            <div class="ui animated button">
+                                <div class="visible content">Powders</div>
+                                <div class="hidden content">
+                                    <i class="right arrow icon"></i>
+                                </div>
+                            </div>
+                            <div class="ui animated button">
+                                <div class="visible content">Parts</div>
+                                <div class="hidden content">
+                                    <i class="right arrow icon"></i>
+                                </div>
+                            </div>
+                            <div class="ui animated button">
+                                <div class="visible content">Misc</div>
+                                <div class="hidden content">
+                                    <i class="right arrow icon"></i>
+                                </div>
                             </div>
                         </div>
-                        <div class="ui animated button">
-                            <div class="visible content">Featured Products</div>
-                            <div class="hidden content">
-                                <i class="right arrow icon"></i>
-                            </div>
-                        </div>
-                        <div class="ui animated button">
-                            <div class="visible content">Machines</div>
-                            <div class="hidden content">
-                                <i class="right arrow icon"></i>
-                            </div>
-                        </div>
-                        <div class="ui animated button">
-                            <div class="visible content">Powders</div>
-                            <div class="hidden content">
-                                <i class="right arrow icon"></i>
-                            </div>
-                        </div>
-                        <div class="ui animated button">
-                            <div class="visible content">Parts</div>
-                            <div class="hidden content">
-                                <i class="right arrow icon"></i>
-                            </div>
-                        </div>
-                        <div class="ui animated button">
-                            <div class="visible content">Misc</div>
-                            <div class="hidden content">
-                                <i class="right arrow icon"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="float: right">
+                        <div style="float: right; width: 70%">
 
-                        <div id="productlistView"></div>
-                        <div id="pager" class="k-pager-wrap"></div>
+                            <div id="productlistView"></div>
+                            <div id="productListPager" class="k-pager-wrap"></div>
 
+                        </div>
                     </div>
                 </div>
             </div>
