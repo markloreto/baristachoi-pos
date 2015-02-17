@@ -14,7 +14,21 @@ $(document).ready(function() {
         },
         schema: {
             data: function(response) {
-                return response.data; // twitter's response is { "results": [ /* results */ ] }
+                return response.data;
+            },
+            model: {
+                id: "product_id",
+                fields: {
+                    product_id: {
+                        type: "number",
+                    },
+                    product_price: {
+                        type: "number",
+                    },
+                    product_stock: {
+                        type: "number",
+                    },
+                }
             }
         }
     });
@@ -72,7 +86,17 @@ $(document).ready(function() {
         autoBind: false,
         height:500,
         template: kendo.template($("#productSearchTpl").html()),
-        dataSource: productsDs
+        dataSource: productsDs,
+        change: function(e) {
+            var current = this.select();
+            var data = this.dataItem(current);
+            console.log(data)
+
+            var item = {product_id: data.product_id, product_name: data.product_name, product_image: data.product_image, product_price: data.product_price, product_stock: data.product_stock, product_unit_name: data.product_unit_name};
+            console.log(item);
+            cartItems[cartItems.length] = item;
+            console.log(cartItems);
+        }
     });
 
 

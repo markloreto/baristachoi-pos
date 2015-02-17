@@ -18,6 +18,10 @@
     <script src="kendojs/kendo.all.min.js"></script>
     <script src="dist/semantic.js"></script>
 
+    <!-- JS MAIN -->
+    <script>
+        var cartItems = new Array();
+    </script>
     <!-- JS BLOCK -->
     <script src="js/menuBlock.js"></script>
     <script src="js/productSearchBlock.js"></script>
@@ -360,7 +364,6 @@
     var isFullScr = false;
     function isFullScreen() {
         isFullScr = true
-        console.log(isFullScr)
     }
 
     function notFullScreen() {
@@ -368,7 +371,6 @@
         if($("#POSPage").hasClass("visible")){
             $("#mainMenu a:first").click()
         }
-        console.log(isFullScr)
     }
     document.addEventListener("fullscreenchange", function () {
         if (document.fullscreen) {
