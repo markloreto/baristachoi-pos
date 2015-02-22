@@ -4,6 +4,14 @@ html, body{
     height: 100%;
 }
 
+.fl {
+    float: left;
+}
+
+.fr{
+    float: right;
+}
+
 .menuPage{
     background-color: rgba(207, 174, 123, 0.18);
 
@@ -79,4 +87,26 @@ html, body{
 #checkoutAccordion.ui.styled.accordion .content, .ui.styled.accordion .accordion .content {
     margin: 0em;
     padding: 0.5em 1em 2px;
+}
+
+.itemCloseButton{
+    margin-right: 5px !important;
+}
+
+.cartItemAttr{
+    width: 65%;
+}
+
+.reds{
+    color:red
+}
+
+#userDetails{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.theUnit{
+    color: rgba(174, 175, 173, 0.96);
+    font-size: 12px;
 }

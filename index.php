@@ -18,14 +18,23 @@
     <script src="kendojs/kendo.all.min.js"></script>
     <script src="dist/semantic.js"></script>
 
+    <script src="kendojs/cultures/kendo.culture.en-PH.min.js"></script>
+
     <!-- JS MAIN -->
     <script>
         var cartItems = new Array();
+        var settings = {"fullscreen" : false}
+        // culture
+        kendo.culture("en-PH");
     </script>
     <!-- JS BLOCK -->
     <script src="js/menuBlock.js"></script>
     <script src="js/productSearchBlock.js"></script>
     <script src="js/checkoutBlock.js"></script>
+    <script src="js/cartBlock.js"></script>
+    <!-- JS FUNCTION -->
+    <script src="js/fullsreen.js"></script>
+    <script src="js/my.js"></script>
 </head>
 <body>
 <div class="ui menu pointing inverted" id="mainMenu">
@@ -117,71 +126,26 @@
             <div class="ui segment yellow">
                 <div class="ui segment inverted">
                     <i class="shop icon large"></i> Shopping Cart
-                    <span class="ui orange circular label mini" style="float: right">
-                        <a class="ui black circular label mini">3</a> cart items
+                    <span class="ui orange circular label mini fr" id="cartNumItems">
+                        <a class="ui black circular label mini">0</a> cart item
                     </span>
 
                 </div>
-                <div class="ui segment black" id="cartItems">
-                    <div class="ui divided list">
-                        <div class="item">
-                            <div class="right floated compact ui"><b class="ui right ribbon label">₱300.00</b></div>
-                            <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
-                                <img class="ui avatar image visible content" src="images/products/caramel.jpg">
-                                <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
-                            </div>
-                            <div class="content">
-                                <div class="header">
-                                    <div class="ui vertical animated button tiny">
-                                        <div class="hidden content"><i class="edit icon"></i></div>
-                                        <div class="visible content">
-                                            2000x
-                                        </div>
-                                    </div><span>Milky Choco Loco</span>
-                                </div>
-                                <div class="description">@ ₱170 / kg </div>
-                            </div>
+                <div class="ui segment black">
+                    <div class="ui divided list" id="cartItems">
+
+                        <div class="item" align="center">
+                            Cart is Empty
                         </div>
-                        <div class="item">
-                            <div class="right floated compact ui"><b class="ui right ribbon label">₱300.00</b></div>
-                            <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
-                                <img class="ui avatar image visible content" src="images/products/caramel.jpg">
-                                <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
-                            </div>
-                            <div class="content">
-                                <div class="header">
-                                    <div class="ui vertical animated button tiny">
-                                        <div class="hidden content"><i class="edit icon"></i></div>
-                                        <div class="visible content">
-                                            2000x
-                                        </div>
-                                    </div><span>Milky Choco Loco</span>
-                                </div>
-                                <div class="description">@ ₱170 / kg </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="right floated compact ui"><b class="ui right ribbon label">₱300.00</b></div>
-                            <div class="ui rotate reveal image left" style="float: left; border: 1px dashed #808080l;">
-                                <img class="ui avatar image visible content" src="images/products/caramel.jpg">
-                                <img class="ui avatar image hidden content" src="images/products/caramel.jpg">
-                            </div>
-                            <div class="content">
-                                <div class="header">
-                                    <div class="ui vertical animated button tiny">
-                                        <div class="hidden content"><i class="edit icon"></i></div>
-                                        <div class="visible content">
-                                            2000x
-                                        </div>
-                                    </div><span>Milky Choco Loco</span>
-                                </div>
-                                <div class="description">@ ₱170 / kg </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
-                <div class="ui label huge" style="float: right">
-                    <i class="money icon large"></i> ₱2300.00
+                <div class="ui left action input fr massive" style="width: 100%">
+                    <button class="ui labeled icon button teal" id="quickPay">
+                        <i class="cart icon"></i>
+                        Checkout
+                    </button>
+                    <input type="text" value="₱0.00" readonly id="grandTotal">
                 </div>
             </div>
         </div>
@@ -195,59 +159,43 @@
                     </div>
                     <div class="active content">
                         <input id="userSearch" title="Product Search">
-                        <div class="ui items">
-                            <div class="item">
-                                <a class="ui tiny image">
-                                    <img src="images/profile/stock.jpg">
-                                </a>
-                                <div class="content">
-                                    <a class="header tiny">Stevie Feliciano Jr.</a>
-                                    <div class="meta">
-                                        <span class="category">Barista Choi</span>
-                                    </div>
-                                    <div class="description">
-                                        <a>View</a> | <a>Edit</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ui celled list">
-                            <a class="item ">
-                                <i class="thumbs outline down icon small circular red inverted large"></i>
-                                <div class="content">
-                                    <div class="header"><span style="color: red">3</span> issues needs to resolve</div>
+                        <div id="userDetails">
 
-                                    <div class="ui text shape">
-                                        <div class="sides">
-                                            <div class="active ui side">Address is empty</div>
-                                            <div class="ui side">Client contact is empty</div>
-                                            <div class="ui side">Update Information</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="item">
-                                <i class="announcement red outline icon small circular inverted large"></i>
-                                <div class="content">
-                                    <div class="header"><span style="color: red">4</span> active reminders</div>
-                                    <div class="ui text shape">
-                                        <div class="sides">
-                                            <div class="active ui side">Inform about plastic</div>
-                                            <div class="ui side">Give Ecobag</div>
-                                            <div class="ui side">Inform new Flavor: Choco Brown</div>
-                                            <div class="ui side">Inform Branch Close</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
                         </div>
                     </div>
                     <div class="title">
                         <i class="dropdown icon"></i>
                         <i class="configure icon"></i>Extended Options
                     </div>
-                    <div class="content">
-                        <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+                    <div class="content" style="margin-bottom: 10px">
+                        <h6 class="ui top attached header inverted">
+                            <i class="calendar icon"></i>Date
+                        </h6>
+                        <div class="ui attached segment">
+                            <input id="orderDate" style="width: 100%"/>
+                        </div>
+                        <h6 class="ui attached header inverted">
+                            <i class="shipping icon"></i>Delivery
+                        </h6>
+                        <div class="ui attached segment">
+                            <div class="inline field">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox">
+                                    <label><i class="shipping icon"></i> Deliver</label>
+                                </div>
+                            </div>
+                        </div>
+                        <h6 class="ui attached header inverted">
+                            <i class="file text outline icon"></i>Notes
+                        </h6>
+                        <div class="ui attached segment">
+                            <div class="ui form">
+                                <div class="field">
+                                    <textarea></textarea>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="title">
                         <i class="dropdown icon"></i>
@@ -341,7 +289,7 @@
             <div class="ui dimmer">
                 <div class="content" align="center">
                     <div class="center">
-                        <div class="ui animated fade button inverted yellow">
+                        <div class="ui animated fade button inverted yellow" onclick="clickCart($(this).parents('.productPs').index())">
                             <div class="visible content">₱#:data.product_price#</div>
                             <div class="hidden content">
                                 Add to Cart
@@ -360,100 +308,103 @@
     </div>
 </script>
 
+<div id="cartItemTemplate" class="dn">
+    <div class="item">
+        <div class="right floated ui"><b class="ui right ribbon label subTotal">₱[product_price]</b></div>
+        <div class="content fl cartItemAttr">
+            <div class="circular ui icon button fl tiny itemCloseButton red">
+                <i class="icon close"></i>
+            </div>
+
+            <div class="fl" style="width: 82%">
+                <h4 class="ui header">
+                    <div class="content">
+                        [product_name]
+                    </div>
+                </h4>
+                <div class="theUnit"><i class="at icon"></i> <span>₱[product_price]</span> / [product_unit_name]</div>
+                <div class="ui right labeled left icon input mini" style="width: 100%;">
+                    <i class="adjust icon"></i>
+                    <input type="text" placeholder="" value="1">
+                    <div class="ui label">
+                        QTY
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="userDetailsTpl" class="dn">
+    <div class="ui items">
+        <div class="item">
+            <a class="ui tiny image">
+                <img src="[user_photo]">
+            </a>
+            <div class="content">
+                <a class="header tiny">[user_name]</a>
+                <div class="meta">
+                    <span class="category">Barista Choi</span>
+                </div>
+                <div class="description">
+                    <a>View</a> | <a>Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui celled list">
+        <div class="item">
+            [user_address]
+        </div>
+        <div class="item">
+            <i class="thumbs outline down icon red big"></i>
+            <div class="content">
+                <div class="header">Issues</div>
+                <div class="description"><span class="reds">3</span> issues needs to resolve</div>
+            </div>
+        </div>
+        <div class="item">
+            <i class="alarm outline icon green big"></i>
+            <div class="content">
+                <div class="header">Reminders</div>
+                <div class="description">
+                    no active reminders.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPLATE END-->
+
+<!-- MODALS -->
+<div class="ui modal small payment">
+    <i class="close icon"></i>
+    <div class="header green">
+        <i class="dollar icon large"></i>Payment
+    </div>
+    <div class="content">
+        <input id="paymentInput" type="number" value="0" style="font-size: 32px; margin-right: 10px;" placeholder=""/>
+        <div class="ui animated fade button huge green">
+            <div class="visible content"><i class="money icon big"></i></div>
+            <div class="hidden content">
+                Pay
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END MODALS -->
+
 <script>
-    var isFullScr = false;
-    function isFullScreen() {
-        isFullScr = true
-    }
 
-    function notFullScreen() {
-        isFullScr = false;
-        if($("#POSPage").hasClass("visible")){
-            $("#mainMenu a:first").click()
-        }
-    }
-    document.addEventListener("fullscreenchange", function () {
-        if (document.fullscreen) {
-            isFullScreen();
-        } else {
-            notFullScreen();
-        }
-    }, false);
-
-    document.addEventListener("mozfullscreenchange", function () {
-        if (document.mozFullScreen) {
-            isFullScreen();
-        } else {
-            notFullScreen();
-        }
-    }, false);
-
-    document.addEventListener("webkitfullscreenchange", function () {
-        if (document.webkitIsFullScreen) {
-            isFullScreen();
-        } else {
-            notFullScreen();
-        }
-    }, false);
-
-    function toggleFullScreen() {
-        if(!isFullScr){
-            if ((document.fullScreenElement && document.fullScreenElement !== null) ||
-                (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-                if (document.documentElement.requestFullScreen) {
-                    document.documentElement.requestFullScreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullScreen) {
-                    document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-                }
-            } else {
-                if (document.cancelFullScreen) {
-                    document.cancelFullScreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen();
-                }
-            }
-        }
-
-    }
-
-    $(function() {
-        $('.shape').shape();
-        setInterval(function(){
-            $('.shape').shape('flip up');
-        },4000)
-    });
 </script>
 
 
 <script>
-    function add_S(str, num){
-        if(num > 1)
-            return str+"s";
-        else
-            return str
-    }
 
-    function colorLevel(num){
-        if(num == 0)
-            return "red";
-        else
-            return "green"
-    }
 
-    function addEllipses(txt, limit){
-        if(txt.length > limit){
-            txt = txt.slice(0,15);
-            txt = txt + "...";
-            return txt;
-        }
-        else{
-            return txt;
-        }
-    }
+
 </script>
 </body>
 </html>
