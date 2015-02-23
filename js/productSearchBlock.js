@@ -1,78 +1,12 @@
 $(document).ready(function() {
-    var productsDs = new kendo.data.DataSource({
-        pageSize: 6,
-        serverFiltering: true,
-        transport: {
-            read: {
-                url: "data/products.php",
-                dataType: "json",
-                type: "post",
-            },
-            parameterMap: function(data) {
-                return kendo.stringify(data);
-            }
-        },
-        schema: {
-            data: function(response) {
-                return response.data;
-            },
-            model: {
-                id: "product_id",
-                fields: {
-                    product_id: {
-                        type: "number",
-                    },
-                    product_price: {
-                        type: "number",
-                    },
-                    product_stock: {
-                        type: "number",
-                    },
-                }
-            }
-        }
-    });
 
-    var productsDs2 = new kendo.data.DataSource({
-        pageSize: 12,
-
-        transport: {
-            read: {
-                url: "data/products.php",
-                dataType: "json",
-                type: "post",
-            },
-            parameterMap: function(data) {
-                return kendo.stringify(data);
-            }
-        },
-        schema: {
-            data: function(response) {
-                return response.data;
-            },
-            model: {
-                id: "product_id",
-                fields: {
-                    product_id: {
-                        type: "number",
-                    },
-                    product_price: {
-                        type: "number",
-                    },
-                    product_stock: {
-                        type: "number",
-                    },
-                }
-            }
-        }
-    });
     productsDs2.fetch(function(){
         $("#productlistView").kendoListView({
             dataSource: productsDs2,
             template: kendo.template($("#productTemplate").html()),
             dataBound: function() {
                 setTimeout(function(){
-                    $('.dimmer').dimmer({
+                    $('.dimmer.productItem').dimmer({
                         on: 'hover'
                     })
                 },100);

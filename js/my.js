@@ -1,6 +1,9 @@
 var grandTotal = 0;
 var itemsTotal = 0;
 
+//ordersDs.add({ order_total: 170, order_date: "2/24/2015", order_user_id: 1, order_delivery: 0, order_notes: "", order_status: "Paid", order_method: "CASH", order_net: 15, order_cashier: 1 });
+//ordersDs.sync()
+
 function clickCart(index){
     var listView = $("#productlistView").data("kendoListView");
     var theItem = listView.dataItems()

@@ -33,6 +33,7 @@
     <script src="js/checkoutBlock.js"></script>
     <script src="js/cartBlock.js"></script>
     <!-- JS FUNCTION -->
+    <script src="js/datasources.js"></script>
     <script src="js/fullsreen.js"></script>
     <script src="js/my.js"></script>
 </head>
@@ -286,7 +287,7 @@
 <script type="text/x-kendo-template" id="productTemplate">
     <div class="productPs">
         <div class="ui image small dimmable">
-            <div class="ui dimmer">
+            <div class="ui dimmer productItem">
                 <div class="content" align="center" style="margin-left: 3px">
                     <div class="center">
                         <div class="ui animated fade button inverted yellow" onclick="clickCart($(this).parents('.productPs').index())">

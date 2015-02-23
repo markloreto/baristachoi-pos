@@ -1,17 +1,16 @@
 $(document).ready(function(){
     $('.ui.checkbox').checkbox();
 
-    setTimeout(function(){
-        $('.ui.modal.payment').modal({
-            closable: false,
-            onShow: function(){
-                var paymentInput = $("#paymentInput").data("kendoNumericTextBox");
-                paymentInput.value(grandTotal);
-                $("#paymentInput").attr("placeholder", "Total: ₱" + grandTotal.toFixed(2))
+    $('.ui.modal.payment').modal('hide dimmer').modal({
+        closable: false,
+        onShow: function () {
+            var paymentInput = $("#paymentInput").data("kendoNumericTextBox");
+            paymentInput.value(grandTotal);
+            $("#paymentInput").attr("placeholder", "Total: ₱" + grandTotal.toFixed(2))
 
-            },
-        })
-    },1000);
+        }
+    })
+
 
     $("#paymentInput").kendoNumericTextBox({
         format: "c",
@@ -28,11 +27,16 @@ $(document).ready(function(){
     });
 
     $("#quickPay").click(function(){
-        if(itemsTotal)
+        if(itemsTotal){
+
             $('.ui.modal.payment').modal("show")
+        }
+
         else{
             // to do: alert no items
         }
     })
+
+    //Orders DataSource
 
 })
