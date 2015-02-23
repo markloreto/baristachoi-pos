@@ -287,7 +287,7 @@
     <div class="productPs">
         <div class="ui image small dimmable">
             <div class="ui dimmer">
-                <div class="content" align="center">
+                <div class="content" align="center" style="margin-left: 3px">
                     <div class="center">
                         <div class="ui animated fade button inverted yellow" onclick="clickCart($(this).parents('.productPs').index())">
                             <div class="visible content">₱#:data.product_price#</div>

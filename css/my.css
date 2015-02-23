@@ -80,10 +80,6 @@ html, body{
     visibility: hidden;
 }
 
-.productPs .button{
-    margin-left: 3px;
-}
-
 #checkoutAccordion.ui.styled.accordion .content, .ui.styled.accordion .accordion .content {
     margin: 0em;
     padding: 0.5em 1em 2px;
