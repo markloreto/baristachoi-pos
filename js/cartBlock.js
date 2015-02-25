@@ -20,9 +20,10 @@ $(document).ready(function(){
             $("#paymentInput").select()
         },1)
     }).keypress(function(event) {
+        var paymentInput = $("#paymentInput").data("kendoNumericTextBox");
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if(keycode == '13') {
-            alert('You pressed a "enter" key in somewhere');
+            pay(paymentInput.value());
         }
     });
 

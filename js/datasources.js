@@ -1,3 +1,55 @@
+// Items
+var dataItems = "data/items.php?"
+var itemsDs = new kendo.data.DataSource({
+    transport: {
+        read:  {
+            url: dataItems + "type=read",
+            dataType: "json",
+            type: "post",
+        },
+        update: {
+            url: dataItems + "type=update",
+            dataType: "json",
+            type: "post",
+        },
+        destroy: {
+            url: dataItems + "type=destroy",
+            dataType: "json",
+            type: "post",
+        },
+        create: {
+            url: dataItems + "type=create",
+            dataType: "json",
+            type: "post",
+        },
+        parameterMap: function(data) {
+            return kendo.stringify(data);
+        }
+    },
+    error: function(e){
+        console.log(e.status)
+    },
+    batch: true,
+    pageSize: 20,
+    sync: function(e) {
+
+    },
+    schema: {
+        data: function(response) {
+            return response.data; // twitter's response is { "results": [ /* results */ ] }
+        },
+        model: {
+            id: "item_id",
+            fields: {
+                item_order_id: { type: "number" },
+                item_product_id: { type: "number" },
+                item_qty: { type: "number" },
+            }
+        }
+    }
+});
+
+// Orders
 var dataOrders = "data/orders.php?"
 var ordersDs = new kendo.data.DataSource({
     transport: {
@@ -26,13 +78,15 @@ var ordersDs = new kendo.data.DataSource({
         }
     },
     error: function(e){
-        console.log(e)
+        console.log(e.status)
     },
     batch: true,
     pageSize: 20,
+    sync: function(e) {
+
+    },
     schema: {
         data: function(response) {
-            console.log(response.data)
             return response.data; // twitter's response is { "results": [ /* results */ ] }
         },
         model: {
@@ -44,7 +98,6 @@ var ordersDs = new kendo.data.DataSource({
                 order_delivery: { type: "boolean" },
                 order_notes: { type: "string"},
                 order_status: { type: "string"},
-                order_method: { type: "string"},
                 order_net: { type: "string"},
                 order_cashier: { type: "number"},
             }
@@ -104,6 +157,9 @@ var productsDs = new kendo.data.DataSource({
                 product_price: {
                     type: "number",
                 },
+                product_cost: {
+                    type: "number",
+                },
                 product_stock: {
                     type: "number",
                 },
@@ -137,6 +193,9 @@ var productsDs2 = new kendo.data.DataSource({
                     type: "number",
                 },
                 product_price: {
+                    type: "number",
+                },
+                product_cost: {
                     type: "number",
                 },
                 product_stock: {

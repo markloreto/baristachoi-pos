@@ -11,20 +11,20 @@ $result = new DataSourceResult('sqlite:..//database.db');
 
 $type = $_GET['type'];
 
-$columns = array('order_id', 'order_total', 'order_date', 'order_user_id', 'order_delivery', 'order_notes', 'order_status', 'order_net', 'order_cashier');
+$columns = array('item_id', 'item_order_id', 'item_product_id', 'item_qty');
 
 switch($type) {
     case 'create':
-        $result = $result->create('orders', $columns, $request->models, 'order_id');
+        $result = $result->create('items', $columns, $request->models, 'item_id');
         break;
     case 'read':
-        $result = $result->read('orders', $columns, $request);
+        $result = $result->read('items', $columns, $request);
         break;
     case 'update':
-        $result = $result->update('orders', $columns, $request->models, 'order_id');
+        $result = $result->update('items', $columns, $request->models, 'order_id');
         break;
     case 'destroy':
-        $result = $result->destroy('orders', $request->models, 'order_id');
+        $result = $result->destroy('items', $request->models, 'order_id');
         break;
 }
 

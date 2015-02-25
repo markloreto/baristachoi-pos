@@ -17,7 +17,6 @@ $(document).ready(function() {
             var userDetailsTpl = $("#userDetailsTpl").html();
             userDetailsTpl = userDetailsTpl.replace("[user_name]", dataItem.user_name).replace("[user_photo]", dataItem.user_photo).replace("[user_address]", dataItem.user_address)
             $("#userDetails").html(userDetailsTpl)
-            console.log(dataItem); // displays "Jane Doe"
         }
     });
 

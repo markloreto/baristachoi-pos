@@ -10,7 +10,7 @@ $request = json_decode($request);
 
 $result = new DataSourceResult('sqlite:..//database.db');
 
-echo json_encode($result->read('products', array('product_id', 'product_name', 'product_image', 'product_stock', 'product_unit_name', 'product_price'), $request));
+echo json_encode($result->read('products', array('product_id', 'product_name', 'product_image', 'product_stock', 'product_unit_name', 'product_price', 'product_cost'), $request));
 
 exit;
 

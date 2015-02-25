@@ -181,7 +181,7 @@
                         <div class="ui attached segment">
                             <div class="inline field">
                                 <div class="ui toggle checkbox">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="delivery">
                                     <label><i class="shipping icon"></i> Deliver</label>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                         <div class="ui attached segment">
                             <div class="ui form">
                                 <div class="field">
-                                    <textarea></textarea>
+                                    <textarea id="notes"></textarea>
                                 </div>
                             </div>
                         </div>

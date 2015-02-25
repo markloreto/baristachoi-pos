@@ -1,8 +1,34 @@
 var grandTotal = 0;
+var orderTotal = 0;
+var netTotal = 0;
 var itemsTotal = 0;
 
-//ordersDs.add({ order_total: 170, order_date: "2/24/2015", order_user_id: 1, order_delivery: 0, order_notes: "", order_status: "Paid", order_method: "CASH", order_net: 15, order_cashier: 1 });
+//ordersDs.add({ order_total: 170, order_date: "2/24/2015", order_user_id: 1, order_delivery: 0, order_notes: "", order_status: "Paid",  order_net: 15, order_cashier: 1 });
 //ordersDs.sync()
+
+function pay(amount){
+    function dataSource_sync(e) {
+        var data = this.data()
+
+        $( "#cartItems .item" ).each(function( index ) {
+            var qty = parseInt($(this).find("input").val());
+            itemsDs.add({ item_order_id: data[0].order_id, item_product_id: cartItems[index].product_id, item_qty: qty});
+        });
+
+        itemsDs.sync()
+    }
+
+    var orderDate = $("#orderDate").data("kendoDatePicker");
+    var order_user = $("#userSearch").data("kendoComboBox");
+    var delivery = ($("#delivery").prop( "checked" )) ? 1 : 0;
+    var notes = $("#notes").val()
+
+
+    ordersDs.bind("sync", dataSource_sync);
+    ordersDs.add({ order_total: orderTotal, order_date: orderDate.value(), order_user_id: order_user.value(), order_delivery: delivery, order_notes: notes, order_status: "Paid",  order_net: netTotal, order_cashier: 1 });
+    ordersDs.sync()
+
+}
 
 function clickCart(index){
     var listView = $("#productlistView").data("kendoListView");
@@ -13,6 +39,7 @@ function clickCart(index){
 function calcTotal(){
     var numItems = $("#cartItems .item").length
     var calcGrantTotal = 0;
+    var calcNetTotal = 0;
     itemsTotal = numItems;
 
     //number of items
@@ -28,6 +55,7 @@ function calcTotal(){
         $( "#cartItems .item" ).each(function( index ) {
             var qty = parseInt($(this).find("input").val());
             calcGrantTotal += qty * (cartItems[index].product_price)
+            calcNetTotal += qty * (cartItems[index].product_cost)
         });
     }
 
@@ -38,7 +66,10 @@ function calcTotal(){
             queue      : true,
         })
 
-    grandTotal = calcGrantTotal
+    orderTotal = calcGrantTotal;
+    netTotal = orderTotal - calcNetTotal;
+
+    grandTotal = calcGrantTotal;
     $("#grandTotal").val("₱"+calcGrantTotal.toFixed(2))
 }
 
