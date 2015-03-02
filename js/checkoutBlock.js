@@ -22,6 +22,61 @@ $(document).ready(function() {
 
     //datepicker
     $("#orderDate").kendoDatePicker({
-        value: new Date(Date.now())
+        value: new Date(Date.now()),
+        change: function() {
+            dateChanges = true
+        }
     });
+
+    // payments grid
+    $("#paymentsGrid").kendoGrid({
+        dataSource: paymentsBlank,
+        pageable: true,
+        toolbar: ["create"],
+        columns: [
+            { field:"payment_date", title: "Date", width: "24%", format: "{0:MM/dd/yyyy}" },
+            { field: "payment_type", title:"Type", width: "18%", editor: function(container, options) {
+                // create an input element
+                var input = $("<input/>");
+                // set its name to the field to which the column is bound ('name' in this case)
+                input.attr("name", options.field);
+                // append it to the container
+                input.appendTo(container);
+                // initialize a Kendo UI AutoComplete
+                input.kendoDropDownList({
+                    dataTextField: "value",
+                    dataValueField: "value",
+                    dataSource: [
+                        { value: "Cash" },
+                        { value: "Bank" },
+                        { value: "Check" }
+                    ]
+                });
+            }
+            },
+            { field: "payment_amount", title:"Amount", width: "25%", format: "{0:c}"},
+            { field: "payment_note", title:"Notes", hidden: true, editor: function(container, options) {
+                // create an input element
+                var input = $("<textarea class='k-textbox'/>");
+                // set its name to the field to which the column is bound ('name' in this case)
+                input.attr("name", options.field);
+                // append it to the container
+                input.appendTo(container);
+                // initialize a Kendo UI AutoComplete
+            }
+            },
+            { command: ["edit", "destroy"], title: "&nbsp;", width: "33%" }],
+        editable: "popup",
+        save: function(e) {
+            var data = this.dataSource.data();
+            var totalPaid = 0
+            $.each(data, function (i, v) {
+                totalPaid = totalPaid + v.payment_amount
+            })
+
+            console.log(totalPaid)
+        }
+    });
+
+    //paymentsDs.filter( { field: "payment_order_id", operator: "eq", value: "" });
 })

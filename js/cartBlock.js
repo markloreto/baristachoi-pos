@@ -6,7 +6,9 @@ $(document).ready(function(){
         onShow: function () {
             var paymentInput = $("#paymentInput").data("kendoNumericTextBox");
             paymentInput.value(grandTotal);
-            $("#paymentInput").attr("placeholder", "Total: ₱" + grandTotal.toFixed(2))
+            $("#paymentInput").attr("placeholder", "Total: " + kendo.toString(grandTotal, "c"));
+
+            $("#coPayment").html(kendo.toString(grandTotal, "c"));
 
         }
     })
@@ -14,7 +16,8 @@ $(document).ready(function(){
 
     $("#paymentInput").kendoNumericTextBox({
         format: "c",
-        decimals: 3
+        decimals: 3,
+        step: 5
     }).focus(function(){
         setTimeout(function(){
             $("#paymentInput").select()
@@ -23,19 +26,26 @@ $(document).ready(function(){
         var paymentInput = $("#paymentInput").data("kendoNumericTextBox");
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if(keycode == '13') {
-            pay(paymentInput.value());
+            checkOut(paymentInput.value());
         }
     });
 
     $("#quickPay").click(function(){
         if(itemsTotal){
-
+            $("#coOrderStatus").parent().removeClass("warning").removeClass("positive").removeClass("negative")
+            $("#paymentTable tr:not(:first)").hide();
+            $("#paymentTable tr:not(:first)").addClass("transition hidden");
+            $("#paymentTable tr:not(:first)").removeClass("visible")
+            $("#paymentTable tr:not(:first)").removeAttr("style")
+            $("#afterChkBtn").hide()
+            $("#afterChkBtn").removeClass("visible")
             $('.ui.modal.payment').modal("show")
         }
+    })
 
-        else{
-            // to do: alert no items
-        }
+    $("#chkPay").click(function () {
+        var paymentInput = $("#paymentInput").data("kendoNumericTextBox");
+        checkOut(paymentInput.value());
     })
 
     //Orders DataSource

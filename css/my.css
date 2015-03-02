@@ -90,7 +90,7 @@ html, body{
 }
 
 .cartItemAttr{
-    width: 65%;
+    width: 63%;
 }
 
 .reds{
@@ -105,4 +105,21 @@ html, body{
 .theUnit{
     color: rgba(174, 175, 173, 0.96);
     font-size: 12px;
+}
+
+.alignRight{
+    text-align: right !important;
+}
+
+#cartNumItems{
+    cursor: pointer;
+}
+
+#paymentsGrid{
+    margin-bottom: 10px;
+}
+
+.k-grid-edit, .k-grid-delete{
+    margin-bottom: 6px !important;
+    margin-top: 6px !important;
 }

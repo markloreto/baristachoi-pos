@@ -1,3 +1,77 @@
+// Payments
+var dataPayments = "data/payments.php?";
+
+var paymentsModel = kendo.data.Model.define({
+    id: "payment_id",
+    fields: {
+        payment_order_id: { type: "number" },
+        payment_note: { type: "string" },
+        payment_date: { type: "date", editable: false },
+        payment_type: { type: "string", defaultValue: "Cash" },
+        payment_amount: { type: "number", validation: {required: true, paymentamountvalidation: function (input) {
+            if ((input.is("[name='payment_amount']") && input.val() == "0")) {
+                input.attr("data-paymentamountvalidation-msg", "Please Enter Amount");
+                return false
+            }
+
+            return true;
+        }} }
+    }
+});
+
+var paymentsBlank = {
+    data: [],
+    schema: {
+        model: paymentsModel
+    },
+    pageSize: 4
+}
+
+var paymentsDs = new kendo.data.DataSource({
+    filter: [
+        { field: "payment_order_id", operator: "eq", value: 233 }
+    ],
+    transport: {
+        read:  {
+            url: dataPayments + "type=read",
+            dataType: "json",
+            type: "post",
+        },
+        update: {
+            url: dataPayments + "type=update",
+            dataType: "json",
+            type: "post",
+        },
+        destroy: {
+            url: dataPayments + "type=destroy",
+            dataType: "json",
+            type: "post",
+        },
+        create: {
+            url: dataPayments + "type=create",
+            dataType: "json",
+            type: "post",
+        },
+        parameterMap: function(data) {
+            return kendo.stringify(data);
+        }
+    },
+    error: function(e){
+        console.log(e.status)
+    },
+    batch: true,
+    pageSize: 4,
+    sync: function(e) {
+
+    },
+    schema: {
+        data: function(response) {
+            return response.data; // twitter's response is { "results": [ /* results */ ] }
+        },
+        model: paymentsModel
+    }
+});
+
 // Items
 var dataItems = "data/items.php?"
 var itemsDs = new kendo.data.DataSource({

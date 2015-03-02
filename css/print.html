@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .ticket,.ticket p,.ticket .fctTicket,#fact_simpl,.ticket strong,.ticket tr td{
+            font-size:10px;font-family:arial!important
+        }
+
+        .ticket p {
+            font-family: monospace;
+            margin: 1px 0;
+        }
+
+        .ticket {
+            font-family: monospace;
+            color: #000;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .ticket #cabeceraTicket, #ticket #totalesTicket, #ticket .datosCliente {
+            margin: 16px 0;
+        }
+
+        .fctTicket, .tituloCliente {
+            padding: 1px 0;
+            border-top: 1px dashed #000;
+            min-height: 17px;
+            border-bottom: 1px dashed #000;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .ticket .tituloTicket, .ticket .tituloTicket2 {
+            font-weight: bold;
+        }
+
+        .ticket .rightTicket {
+            text-align: right;
+        }
+
+        .ticket #fact_simpl {
+            display: inline-block;
+            float: left;
+        }
+
+        .ticket .alignright {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div style="overflow: auto; width: 250px; height: 534px;">
+    <div id="ticket" class="ticket ticketnormal">
+
+        <div id="cabeceraTicket"><div class="logo" style="margin-bottom:10px;text-align: center;"><img style="" src="http://www.pos-tpv.com/demo16/img/logo.jpg"></div>
+            <p class="center direccionTicket">My shop adrress </p>
+            <p class="center direccionTicket">Paris - 86000 - Francia</p>
+            <p class="center direccionTicket">SIRET: 229922992299</p><p class="center direccionTicket">Tlf 0651095209</p><p class="center tituloTicket">FACTURA SIMPLIFICADA</p><p class="center tituloTicket2" style="display: none;">Cash</p><p class="center">Ref. <span class="refPedido">ELXYOLWUN</span></p>
+            <div class="datosCliente" style="">
+                <div class="tituloCliente"><strong>Datos del cliente</strong></div>
+                <table width="100%">
+                    <tbody><tr>
+                        <td width="27%" class="rightTicket">Name:</td>
+                        <td width="73%" class="rightTicket nombreCliente">asdasd adasd</td>
+                    </tr>
+                    <tr>
+                        <td class="rightTicket">Address:</td>
+                        <td class="rightTicket direccionCliente">desconocido  089723 desconocido</td>
+                    </tr>
+                    <tr>
+                        <td class="rightTicket">DNI / NIF:</td>
+                        <td class="rightTicket dniCliente">00000000</td>
+                    </tr>
+                    </tbody></table>
+            </div>
+            <div class="fctTicket"><div id="fact_simpl" style=""><div class="fctLabel" style="display: none;">Fct </div><span>0000436</span></div>
+                <span class="dateTicket alignright">28 Feb, 15 16:35:38</span>
+            </div>
+        </div>
+        <table id="productosTicket" width="100%">
+            <thead>
+            <tr>
+                <td class="cabecera" width="65%">Name</td>
+                <td class="cabecera center" width="1%">Cant.</td><td class="cabecera rightTicket" width="34%">Price</td>
+            </tr>
+            </thead>
+            <tbody><tr><td width="48%">Aaaa Bbbb</td><td width="13%" class="center">1</td><td width="13%" class="center columnaDescuentos" style="display: none;"></td><td width="28%" class="rightTicket">90,00</td></tr><tr><td width="48%">Acer Palmatum</td><td width="13%" class="center">1</td><td width="13%" class="center columnaDescuentos" style="display: none;"></td><td width="28%" class="rightTicket">2250,00</td></tr><tr><td width="48%">Blouse - Color : Black, Size : S</td><td width="13%" class="center">2</td><td width="13%" class="center columnaDescuentos" style="display: none;"></td><td width="28%" class="rightTicket">57,62</td></tr></tbody>
+        </table><table id="totalesTicket" width="100%">
+        <tbody><tr class="totales"></tr>
+        <tr>
+            <td width="60%" class="rightTicket"><strong>Subtotal</strong></td>
+            <td width="40%" class="rightTicket" id="baseTicket"><span>1 990,89 €</span></td>
+        </tr>
+        <tr id="contDescuentos" style="display: none;">
+            <td width="60%" class="rightTicket"><strong>Discounts</strong></td>
+            <td width="40%" class="rightTicket" id="descuentosTicket"><span></span></td>
+        </tr>
+        <tr id="tax_0">
+            <td width="60%" class="rightTicket porcentajeIva" style="display: table-cell;"><strong>TAX <span>22</span>%</strong></td>
+            <td width="40%" class="totalIvaTicket rightTicket" style="display: table-cell;"><span>16,23 €</span></td>
+        </tr><tr class="taxes" id="tax_1">
+            <td width="60%" class="rightTicket porcentajeIva" style=""><strong>TAX <span>21</span>%</strong></td>
+            <td width="40%" class="totalIvaTicket rightTicket" style="display: table-cell;"><span>390,50 €</span></td>
+        </tr><tr class="taxes" id="tax_2">
+            <td width="60%" class="rightTicket porcentajeIva" style=""><strong>TAX <span>0</span>%</strong></td>
+            <td width="40%" class="totalIvaTicket rightTicket" style="display: table-cell;"><span>0,00 €</span></td>
+        </tr>
+        <tr class="envio" style="display: none;">
+            <td width="60%" class="rightTicket"><strong>Shipping </strong></td>
+            <td width="40%" class="envioTicket rightTicket"><span></span></td>
+        </tr>
+        <tr id="totalIVA" style="display: table-row;">
+            <td width="60%" class="rightTicket porcentajeIva" style="display: table-cell;"><strong>Total IVA </strong></td>
+            <td width="40%" class="totalIvaTicket rightTicket" style="display: table-cell;"><span>406,73 €</span></td>
+        </tr>
+        <tr id="vale" style="display: none;">
+            <td width="60%" class="rightTicket code"><strong><span></span></strong></td>
+            <td width="40%" class="rightTicket amountTicket"><span></span></td>
+        </tr>
+        <tr id="totalCont">
+            <td width="60%" class="rightTicket"><strong>Total</strong></td>
+            <td width="40%" id="totalTicket" class="rightTicket"><span>2 397,62 €</span></td>
+        </tr>
+        <tr id="contPagadoTicket" style="display: none;">
+            <td width="60%" class="rightTicket"><strong>Paid</strong></td>
+            <td width="40%" id="pagadoTicket" class="rightTicket"><span></span></td>
+        </tr>
+        <tr id="contTicketDevuelto" style="display: none;">
+            <td width="60%" class="rightTicket"><strong>Devuelto</strong></td>
+            <td width="40%" id="devueltoTicket" class="rightTicket"><span></span></td>
+        </tr>
+        <tr id="contFormaPago" style="">
+            <td width="60%" class="rightTicket"><strong>Forma de pago</strong></td>
+            <td width="40%" id="formaPagoTicket" class="rightTicket"><span>Cash</span></td>
+        </tr>
+        <tr class="facturaCreditoTicket" style="display: none;">
+            <td width="60%" class="rightTicket"><strong>End date</strong></td>
+            <td width="40%" class="rightTicket"><span class="fechaFinTicket"></span></td>
+        </tr></tbody>
+    </table>
+        <div class="messageOrderTicket" style="display: none;">
+            <div class="tituloCliente"><strong>Nota:</strong></div>
+            <span class="messageOrderContent"></span>
+            <span class="lineaPuntos"></span>
+        </div>
+        <div class="transferenciaTicket" style="display: none;">
+            <div class="tituloCliente"><strong>Datos para el ingreso</strong></div>
+            <span class="datosBancariosTicket"></span>
+        </div><div class="center"><h3 style="text-align: center;">Para cualquier cambio o reclamacion, es imprescindible este ticket antes de 15 dias.</h3>
+        <h3 style="text-align: center;"><strong>*** </strong>NO SE DEVUELVE EL DINERO<strong> ***</strong></h3>
+        <h4 style="text-align: center;"><strong>** </strong>GRACIAS POR SU VISITA<strong> **</strong></h4></div></div>
+</div>
+</body>
+</html>

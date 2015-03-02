@@ -123,11 +123,11 @@
                 </div>
             </div>
         </div>
-        <div class="five wide column" style="margin-bottom: 30px">
+        <div class="four wide column" style="margin-bottom: 30px">
             <div class="ui segment yellow">
                 <div class="ui segment inverted">
                     <i class="shop icon large"></i> Shopping Cart
-                    <span class="ui orange circular label mini fr" id="cartNumItems">
+                    <span class="ui orange circular label mini fr" id="cartNumItems" onclick="removeCartItems()">
                         <a class="ui black circular label mini">0</a> cart item
                     </span>
 
@@ -141,8 +141,8 @@
 
                     </div>
                 </div>
-                <div class="ui left action input fr massive" style="width: 100%">
-                    <button class="ui labeled icon button teal" id="quickPay">
+                <div class="ui left action input fr massive" style="width: 100%; z-index: 20">
+                    <button class="ui labeled icon button teal disabled" id="quickPay">
                         <i class="cart icon"></i>
                         Checkout
                     </button>
@@ -150,7 +150,7 @@
                 </div>
             </div>
         </div>
-        <div class="four wide column">
+        <div class="five wide column">
             <div class="ui segment yellow">
                 <h4 class="ui dividing header">Checkout</h4>
                 <div class="ui styled accordion" id="checkoutAccordion">
@@ -203,8 +203,7 @@
                         <i class="payment icon"></i>Payment
                     </div>
                     <div class="content">
-                        <p>Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
-                        <p>A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                        <div id="paymentsGrid"></div>
                     </div>
                 </div>
             </div>
@@ -243,7 +242,7 @@
                 <div class="middle aligned content">
                     <a class="header">#:data.product_name#</a>
                     <div class="meta">
-                        <div class=""><a class="ui #: colorLevel(data.product_stock) # label">#: data.product_stock #</a> #: add_S(data.product_unit_name, data.product_stock) # left <a class="ui label tag right floated large">₱ #: data.product_price #</a></div>
+                        <div class=""><a class="ui #: colorLevel(data.product_stock) # label">#: data.product_stock #</a> #: add_S(data.product_unit_name, data.product_stock) # left <a class="ui label tag right floated large">#: moneyIt(data.product_price) #</a></div>
                     </div>
                 </div>
             </div>
@@ -291,7 +290,7 @@
                 <div class="content" align="center" style="margin-left: 3px">
                     <div class="center">
                         <div class="ui animated fade button inverted yellow" onclick="clickCart($(this).parents('.productPs').index())">
-                            <div class="visible content">₱#:data.product_price#</div>
+                            <div class="visible content">#:moneyIt(data.product_price)#</div>
                             <div class="hidden content">
                                 Add to Cart
                             </div>
@@ -311,21 +310,20 @@
 
 <div id="cartItemTemplate" class="dn">
     <div class="item">
-        <div class="right floated ui"><b class="ui right ribbon label subTotal">₱[product_price]</b></div>
+        <div class="right floated ui" style="margin: 0px"><b class="ui right ribbon label subTotal">[product_price]</b></div>
         <div class="content fl cartItemAttr">
             <div class="circular ui icon button fl tiny itemCloseButton red">
                 <i class="icon close"></i>
             </div>
 
-            <div class="fl" style="width: 82%">
+            <div class="fl" style="width: 80%">
                 <h4 class="ui header">
                     <div class="content">
                         [product_name]
                     </div>
                 </h4>
-                <div class="theUnit"><i class="at icon"></i> <span>₱[product_price]</span> / [product_unit_name]</div>
-                <div class="ui right labeled left icon input mini" style="width: 100%;">
-                    <i class="adjust icon"></i>
+                <div class="theUnit"><i class="at icon"></i> <span>[product_price]</span> / [product_unit_name]</div>
+                <div class="ui right labeled left input medium" style="width: 100%;">
                     <input type="text" placeholder="" value="1">
                     <div class="ui label">
                         QTY
@@ -385,12 +383,38 @@
         <i class="dollar icon large"></i>Payment
     </div>
     <div class="content">
-        <input id="paymentInput" type="number" value="0" style="font-size: 32px; margin-right: 10px;" placeholder=""/>
-        <div class="ui animated fade button huge green">
+        <input id="paymentInput" type="number" value="0" style="font-size: 32px; margin-right: 10px; width:70%" placeholder=""/>
+        <div class="ui animated fade button huge green" id="chkPay">
             <div class="visible content"><i class="money icon big"></i></div>
             <div class="hidden content">
                 Pay
             </div>
+        </div>
+
+        <table class="ui definition table green two column" id="paymentTable">
+            <tbody>
+                <tr>
+                    <td class="right aligned">TOTAL PAYMENT:</td>
+                    <td id="coPayment"></td>
+                </tr>
+                <tr class="">
+                    <td class="right aligned">AMOUNT PAID:</td>
+                    <td id="coAmountPaid"></td>
+                </tr>
+                <tr class="warning" style="z-index: 25">
+                    <td class="right aligned">CHANGE:</td>
+                    <td id="coChange"></td>
+                </tr>
+                <tr class="">
+                    <td class="right aligned">ORDER STATUS:</td>
+                    <td id="coOrderStatus"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="ui center aligned segment" id="afterChkBtn">
+            <button class="ui button" id="newTransactionBtn" onclick="newTransaction()">
+                New Transaction
+            </button>
         </div>
     </div>
 </div>
