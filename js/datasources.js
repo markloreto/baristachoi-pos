@@ -6,7 +6,7 @@ var paymentsModel = kendo.data.Model.define({
     fields: {
         payment_order_id: { type: "number" },
         payment_note: { type: "string" },
-        payment_date: { type: "date", editable: false },
+        payment_date: { type: "date", editable: false},
         payment_type: { type: "string", defaultValue: "Cash" },
         payment_amount: { type: "number", validation: {required: true, paymentamountvalidation: function (input) {
             if ((input.is("[name='payment_amount']") && input.val() == "0")) {
@@ -19,13 +19,19 @@ var paymentsModel = kendo.data.Model.define({
     }
 });
 
-var paymentsBlank = {
+var paymentsBlank = new kendo.data.DataSource({
     data: [],
     schema: {
         model: paymentsModel
     },
-    pageSize: 4
-}
+    pageSize: 4,
+    change: function(e) {
+        //update date eveytime we add a new payments
+        if(e.action == "add"){
+            e.items[e.index].payment_date = new Date();
+        }
+    }
+})
 
 var paymentsDs = new kendo.data.DataSource({
     filter: [

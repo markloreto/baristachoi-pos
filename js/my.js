@@ -3,16 +3,16 @@ var orderTotal = 0;
 var netTotal = 0;
 var itemsTotal = 0;
 var dateChanges = false;
+var totalPayments = 0;
 
-function pay(payment_order_id, payment_date, payment_type, payment_amount){
-    if(payment_amount > 0) {
-        paymentsDs.add({
-            payment_order_id: payment_order_id,
-            payment_date: payment_date,
-            payment_type: payment_type,
-            payment_amount: payment_amount
-        });
-    }
+function calcTotalPayment(data){
+    var totalPaid = 0
+    $.each(data, function (i, v) {
+        totalPaid = totalPaid + v.payment_amount
+    })
+
+    totalPayments = totalPaid;
+    calcTotal()
 }
 
 function newTransaction(){
@@ -23,6 +23,17 @@ function newTransaction(){
 
     // disable closure of modal
     $('.ui.modal.payment i.close.icon').show()
+
+    //if there are payments then remove it
+    var paymentsNum = paymentsBlank.data().length
+    if(paymentsNum){
+        paymentsBlank.fetch(function() {
+            for (i = 0; i < paymentsNum; i++) {
+                paymentsBlank.remove(paymentsBlank.at(0));
+            }
+        })
+    }
+
 
     $("#coChange").parent().transition('remove looping');
     removeCartItems();
@@ -44,10 +55,28 @@ function newTransaction(){
     $('.ui.modal.payment').modal("hide")
 }
 
+function pay(payment_order_id, payment_date, payment_type, payment_amount, payment_note){
+    if(payment_amount > 0) {
+        paymentsDs.add({
+            payment_order_id: payment_order_id,
+            payment_date: payment_date,
+            payment_type: payment_type,
+            payment_amount: payment_amount,
+            payment_note: payment_note
+        });
+    }
+}
+
 function checkOut(amount){
     function paymentsDs_sync(order_id) {
         var amountEntered = (change > 0) ? amount - change : amount;
         pay(order_id, new Date(Date.now()), "Cash", amountEntered);
+
+        var data = $("#paymentsGrid").data("kendoGrid").dataSource.data();
+        $.each(data, function (i, v) {
+            pay(order_id, v.payment_date, v.payment_type, v.payment_amount);
+        })
+
 
         paymentsDs.sync()
     }
@@ -179,14 +208,16 @@ function calcTotal(){
         $("#cartNumItems").html('<a class="ui black circular label mini">'+numItems+'</a> cart item');
     }
 
+
     //calculate Grand Total
-    if(numItems){
+    if(cartItems.length){
         $( "#cartItems .item" ).each(function( index ) {
             var qty = parseInt($(this).find("input").val());
             calcGrantTotal += qty * (cartItems[index].product_price)
             calcNetTotal += qty * (cartItems[index].product_cost)
         });
     }
+
 
     if(grandTotal != calcGrantTotal )
         $("#grandTotal").parents(".input").transition({
@@ -198,7 +229,29 @@ function calcTotal(){
     orderTotal = calcGrantTotal;
     netTotal = orderTotal - calcNetTotal;
 
+    // with payments code
+    if(totalPayments > 0){
+        calcGrantTotal = calcGrantTotal - totalPayments;
+        $("#totalPayments").show()
+        $("#totalPayments input").val("-" + kendo.toString(totalPayments, "c"))
+    }
+    else{
+        $("#totalPayments").hide()
+    }
+
     grandTotal = calcGrantTotal;
+
+    // do not accept if negative or overpaid
+    if(grandTotal < 0 ){
+        $("#quickPay").addClass("disabled");
+        $("#grandTotal").addClass("reds");
+    }
+    else{
+        $("#quickPay").removeClass("disabled");
+        $("#grandTotal").removeClass("reds");
+    }
+
+
     $("#grandTotal").val(kendo.toString(calcGrantTotal, "c"))
 }
 
@@ -312,7 +365,6 @@ function addToCart(item){
                 onComplete : function() {
 
                     cartItems.splice(index,1);
-                    console.log(cartItems)
 
                     dis.parents("#cartItems").find(".itemCloseButton").removeClass("disabled")
                     dis.parents(".item").remove();
@@ -344,7 +396,6 @@ function removeCartItems(){
     $("#quickPay").addClass("disabled");
 
 
-    console.log(cartItems)
 }
 
 function add_S(str, num){

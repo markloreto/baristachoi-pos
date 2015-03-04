@@ -67,14 +67,8 @@ $(document).ready(function() {
             },
             { command: ["edit", "destroy"], title: "&nbsp;", width: "33%" }],
         editable: "popup",
-        save: function(e) {
-            var data = this.dataSource.data();
-            var totalPaid = 0
-            $.each(data, function (i, v) {
-                totalPaid = totalPaid + v.payment_amount
-            })
-
-            console.log(totalPaid)
+        dataBound: function(e) {
+            calcTotalPayment(this.dataSource.data())
         }
     });
 

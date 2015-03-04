@@ -94,7 +94,7 @@ html, body{
 }
 
 .reds{
-    color:red
+    color:red !important;
 }
 
 #userDetails{

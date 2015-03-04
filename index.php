@@ -141,7 +141,16 @@
 
                     </div>
                 </div>
-                <div class="ui left action input fr massive" style="width: 100%; z-index: 20">
+                <div style="margin-bottom: 10px" class="fr dn" id="totalPayments">
+                    <div class="ui labeled input small right">
+                        <div class="ui label">
+                            Payments:
+                        </div>
+                        <input type="text" placeholder="" value="" readonly>
+                    </div>
+                </div>
+
+                <div class="ui left action input fr massive" style="width: 100%; z-index: 20; clear: both">
                     <button class="ui labeled icon button teal disabled" id="quickPay">
                         <i class="cart icon"></i>
                         Checkout
