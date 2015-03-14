@@ -5,6 +5,9 @@ var itemsTotal = 0;
 var dateChanges = false;
 var totalPayments = 0;
 
+var photosJSON = "";
+var mediazInput;
+
 function calcTotalPayment(data){
     var totalPaid = 0
     $.each(data, function (i, v) {
@@ -398,6 +401,10 @@ function removeCartItems(){
 
 }
 
+function randomIntegerBetween(minValue,maxValue){
+    return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+}
+
 function add_S(str, num){
     if(num > 1)
         return str+"s";
@@ -425,4 +432,124 @@ function addEllipses(txt, limit){
 
 function moneyIt(money){
     return kendo.toString(money, "c")
+}
+
+function profilePhoto(img){
+    if(img == "")
+        img = "images/nophoto.jpg";
+
+    return "<img src='"+img+"' />";
+}
+
+/* Media Code*/
+$(document).ready(function () {
+    $("#mediazListView").kendoListView({
+        dataSource: mediazDs,
+        template: kendo.template($("#mediazTpl").html())
+    });
+
+    $("#mediazPager").kendoPager({
+        dataSource: mediazDs,
+        change: function() {
+            $('.profile-photo2 img').popup();
+        }
+    });
+
+    $("#mediazFiles").kendoUpload({
+        async: {
+            saveUrl: "data/uploadImages.php?type=save&dir=weee",
+            /*removeUrl: "remove",*/
+            autoUpload: true
+        },
+        localization: {
+            select: "Upload Profile Photos"
+        },
+        upload: function(e){
+            var files = e.files;
+            var file;
+            // Check the extension of each file and abort the upload if it is not .jpg
+            $.each(files, function (index) {
+                if ($.inArray(this.extension.toLowerCase(), [".jpg", ".jpeg", ".png", ".gif"]) === -1) {
+                    alert("Only jpg, jpeg, png and gif files can be uploaded")
+                    e.preventDefault();
+                }
+            });
+        },
+        success: function(){
+            $.getJSON(photosJSON, function (entry) {
+                mediazDs.fetch(function () {
+                    mediazDs.data(entry);
+
+                    var pager = $("#mediazPager").data("kendoPager");
+                    pager.page(1);
+
+                    $('.profile-photo2 img').popup();
+                })
+            });
+
+            $("#mediazFiles").parent().parent().next().find("li").delay(5000).fadeOut("slow", function(){
+                $(this).remove()
+            })
+        }
+    });
+
+    $('.ui.modal.mediaz').modal('hide dimmer').modal({
+        closable: false,
+        onShow: function () {
+
+        },
+        onHide: function(){
+            $(".k-overlay").transition('scale')
+            $(".k-overlay").next().transition('scale')
+        }
+    })
+})
+
+function openMedia(title, jsonLink, dir, ppInput){
+    $("#media-title").html(title);
+    var data = $("#mediazFiles").data("kendoUpload")
+    saveUrl = data.options.async.saveUrl;
+    theDir = saveUrl.slice(0, saveUrl.lastIndexOf("dir=")+4) + dir
+    data.options.async.saveUrl = theDir;
+    photosJSON = jsonLink;
+    mediazInput = ppInput;
+    $.getJSON(jsonLink, function (entry) {
+        mediazDs.fetch(function () {
+            mediazDs.data(entry);
+
+            $('.profile-photo2 img').popup();
+        })
+    });
+
+}
+
+function removeImage(j){
+    j.next().popup("destroy")
+    var img = j.next().attr("src");
+    j.parent().parent().transition({
+        animation  : 'scale',
+        duration   : '1s',
+        onComplete : function() {
+            $.post("data/uploadImages.php?type=remove&filename="+img, function () {
+                $.getJSON(photosJSON, function (entry) {
+                    mediazDs.fetch(function () {
+                        mediazDs.data(entry);
+                        $('.profile-photo2 img').popup();
+                    })
+                });
+            });
+        }
+    })
+
+}
+
+function selectedImage(j){
+    setTimeout(function () {
+        mediazInput.val(j.attr("src"))
+        mediazInput.change()
+    },500)
+
+
+    mediazInput.parent().find("img").attr("src", j.attr("src"));
+    $(".ui.modal.mediaz").modal('hide');
 }

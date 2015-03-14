@@ -186,14 +186,32 @@ var ordersDs = new kendo.data.DataSource({
 });
 
 // Users Datasource
+var dataUsers = "data/users.php?";
 var userDs = new kendo.data.DataSource({
-    pageSize: 6,
+    batch: true,
+    pageSize: 8,
+    serverPaging: true,
     serverFiltering: true,
     transport: {
-        read: {
-            url: "data/users.php",
+        read:  {
+            url: dataUsers + "type=read",
             dataType: "json",
-            type: "post",
+            type: "post"
+        },
+        update: {
+            url: dataUsers + "type=update",
+            dataType: "json",
+            type: "post"
+        },
+        destroy: {
+            url: dataUsers + "type=destroy",
+            dataType: "json",
+            type: "post"
+        },
+        create: {
+            url: dataUsers + "type=create",
+            dataType: "json",
+            type: "post"
         },
         parameterMap: function(data) {
             return kendo.stringify(data);
@@ -205,6 +223,19 @@ var userDs = new kendo.data.DataSource({
         },
         model: {
             id: "user_id",
+            fields: {
+                user_name: { type: "string", validation: {required: true}},
+                user_address: { type: "string", validation: {required: true}},
+                user_contact: { type: "string", validation: {required: true}},
+                user_group: { type: "number"},
+                user_status: { type: "string"},
+                user_date: { type: "date", validation: {required: true}},
+                user_photo: { type: "string"},
+                user_barangay: { type: "string", validation: {required: true}}
+            }
+        },
+        total: function(response){
+            return response.total;
         }
     }
 });
@@ -270,18 +301,23 @@ var productsDs2 = new kendo.data.DataSource({
             id: "product_id",
             fields: {
                 product_id: {
-                    type: "number",
+                    type: "number"
                 },
                 product_price: {
-                    type: "number",
+                    type: "number"
                 },
                 product_cost: {
-                    type: "number",
+                    type: "number"
                 },
                 product_stock: {
-                    type: "number",
-                },
+                    type: "number"
+                }
             }
         }
     }
+});
+
+var mediazDs = new kendo.data.DataSource({
+    data: [],
+    pageSize: 14
 });

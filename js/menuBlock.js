@@ -13,6 +13,8 @@ function menuPageSelected(page){
     })
 }
 
+
+
 $(document).ready(function(){
     $('.menu a.item').on('click', function() {
         if(!$(this).hasClass('dropdown')) {
@@ -23,6 +25,8 @@ $(document).ready(function(){
                     menuPageSelected("POSPage")
                 if($.trim($(this).text()) == "Dashboard" && !$(this).hasClass("active"))
                     menuPageSelected("dashboardPage")
+                if($.trim($(this).text()) == "Clients" && !$(this).hasClass("active"))
+                    menuPageSelected("usersPage")
             }
             $(this).addClass('active').closest('.ui.menu').find('.item').not($(this)).removeClass('active');
         }

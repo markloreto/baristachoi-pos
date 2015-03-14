@@ -123,3 +123,29 @@ html, body{
     margin-bottom: 6px !important;
     margin-top: 6px !important;
 }
+
+.profile-photo{
+    border: 2px dashed lightgray;-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.profile-photo2{
+    border: 2px dashed lightgray;-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 4px;
+    cursor: pointer;
+}
+
+.profilePic{
+    width: 80px;
+    height: 80px;
+}
+
+#mediazListView {
+    border: none
+}

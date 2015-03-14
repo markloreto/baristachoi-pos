@@ -24,6 +24,7 @@
     <script>
         var cartItems = new Array();
         var settings = {"fullscreen" : false}
+        var clientsGridLoaded = false;
         // culture
         kendo.culture("en-PH");
     </script>
@@ -32,6 +33,8 @@
     <script src="js/productSearchBlock.js"></script>
     <script src="js/checkoutBlock.js"></script>
     <script src="js/cartBlock.js"></script>
+    <!-- PAGES -->
+    <script src="js/clientsPage.js"></script>
     <!-- JS FUNCTION -->
     <script src="js/datasources.js"></script>
     <script src="js/fullsreen.js"></script>
@@ -44,6 +47,9 @@
     </a>
     <a class="item" onclick="toggleFullScreen()">
         <i class="desktop icon"></i> Point of Sale
+    </a>
+    <a class="item" onclick="loadClients()">
+        <i class="users icon"></i> Clients
     </a>
     <div class="right menu">
         <div class="item">
@@ -221,6 +227,16 @@
     </div>
 </div>
 
+<div id="usersPage" class="menuPage dn">
+    <div class="ui grid horizontally padded">
+        <div class="sixteen wide column">
+            <div class="ui segment" style="height: 100%">
+                <div id="clientsGrid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="ui icon menu mini bottom fixed yellow">
 
@@ -383,9 +399,40 @@
     </div>
 </div>
 
+<script type="text/x-kendo-template" id="mediazTpl">
+    <div class="profile-photo2 fl">
+        <div class="ui fluid image profilePic" style="width: 80px; height: 80px">
+            <a class="ui red corner label" onclick="removeImage($(this))">
+                <i class="close icon"></i>
+            </a>
+            <img src="#= data.filename #" data-content="Click to Select" onclick="selectedImage($(this))">
+        </div>
+    </div>
+
+</script>
+
 <!-- TEMPLATE END-->
 
 <!-- MODALS -->
+
+<div class="ui modal mediaz">
+    <i class="close icon"></i>
+    <div class="header" id="media-title">
+
+    </div>
+    <div class="content" id="mediazContent">
+        <div id="mediazListView"></div>
+        <div id="mediazPager" class="k-pager-wrap"></div>
+
+        <div style="margin-top: 10px">
+            <div class="demo-section k-header">
+                <input name="files" id="mediazFiles" type="file"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <div class="ui modal small payment">
     <i class="close icon"></i>
     <div class="header green">
