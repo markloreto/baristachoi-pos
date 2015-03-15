@@ -240,6 +240,55 @@ var userDs = new kendo.data.DataSource({
     }
 });
 
+// Groups Datasource
+var dataGroups = "data/groups.php?";
+var groupDs = new kendo.data.DataSource({
+    batch: true,
+    pageSize: 5,
+    serverPaging: true,
+    serverFiltering: true,
+    transport: {
+        read:  {
+            url: dataGroups + "type=read",
+            dataType: "json",
+            type: "post"
+        },
+        update: {
+            url: dataGroups + "type=update",
+            dataType: "json",
+            type: "post"
+        },
+        destroy: {
+            url: dataGroups + "type=destroy",
+            dataType: "json",
+            type: "post"
+        },
+        create: {
+            url: dataGroups + "type=create",
+            dataType: "json",
+            type: "post"
+        },
+        parameterMap: function(data) {
+            return kendo.stringify(data);
+        }
+    },
+    schema: {
+        data: function(response) {
+            return response.data; // twitter's response is { "results": [ /* results */ ] }
+        },
+        model: {
+            id: "group_id",
+            fields: {
+                group_name: { type: "string", validation: {required: true}}
+            }
+        },
+        total: function(response){
+            return response.total;
+        }
+    }
+});
+groupDs.read();
+
 
 // Products with filtering
 var productsDs = new kendo.data.DataSource({

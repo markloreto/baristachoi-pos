@@ -10,7 +10,16 @@ function loadClients(){
             filterable: {
                 mode: "row"
             },
-            toolbar: ["create"],
+            excel: {
+                fileName: "Clients.xlsx",
+                proxyURL: "http://demos.telerik.com/kendo-ui/service/export",
+                filterable: true
+            },
+            pdf: {
+                fileName: "Clients.pdf",
+                proxyURL: "http://demos.telerik.com/kendo-ui/service/export"
+            },
+            toolbar: ["create", "excel", "pdf"],
             columns: [
                 { field:"user_photo", title: "Photo", template: "#= profilePhoto(data.user_photo) #", hidden: true,
                     editor: function(container, options) {
@@ -43,15 +52,57 @@ function loadClients(){
                 { field:"user_name", title: "Name" },
                 { field:"user_address", title: "Address" },
                 { field:"user_contact", title: "Contact Info" },
-                { field:"user_group", title: "Group" },
+                { field:"user_group", title: "Group", editor: groupsDropDownEditor, template: "#=getGroupName(user_group)#", width: 250,
+                    filterable: {
+                        cell: {
+                            template: function (args) {
+                                args.element.kendoDropDownList({
+                                    dataSource: groupDs,
+                                    valuePrimitive: true,
+                                    dataTextField: "group_name",
+                                    dataValueField: "group_id",
+                                    optionLabel: {
+                                        group_name: "Select a Group",
+                                        group_id: 0
+                                    }
+                                });
+                            },
+                            showOperators: false,
+
+
+                        },
+
+                    }
+                },
                 { field:"user_status", title: "Status" },
                 { field:"user_date", title: "Date Registered", format: "{0:D}" },
-                { field:"user_barangay", title: "Barangay" },
+                { field:"user_barangay", title: "Barangay",
+                    editor: function(container, options) {
+                        // create an input element
+                        var input = $('<div class="ui category search focus fluid"/>');
+                        input.html('<div class="ui icon input"><input class="prompt" type="text" placeholder="Search animals..." autocomplete="off" name="'+options.field+'" style="width: auto"><i class="search icon"></i></div><div class="results"></div>')
+                        // set its name to the field to which the column is bound ('name' in this case)
+
+                        input.search({
+                            apiSettings: {
+                                url: 'data/barangays.php?q={query}'
+                            },
+                            type: 'category'
+                        })
+
+                        input.appendTo(container);
+                    }
+                },
                 { command: ["edit", "destroy"], title: "&nbsp;"}],
             editable: "popup",
             pageable: {
-                pageSize: 5
-            }
+                pageSize: 5,
+                pageSizes: [8, 10, 50, 100, 500],
+            },
+            groupable: true,
+            sortable: true,
+            resizable: true,
+            reorderable: true
         });
 
 

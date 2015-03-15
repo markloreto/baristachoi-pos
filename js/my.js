@@ -441,8 +441,20 @@ function profilePhoto(img){
     return "<img src='"+img+"' />";
 }
 
+
+
 /* Media Code*/
 $(document).ready(function () {
+    $('.ui.modal.groups').modal('hide dimmer').modal({
+        closable: false,
+        onShow: function () {
+
+        },
+        onHide: function(){
+
+        }
+    });
+
     $("#mediazListView").kendoListView({
         dataSource: mediazDs,
         template: kendo.template($("#mediazTpl").html())
@@ -502,7 +514,7 @@ $(document).ready(function () {
             $(".k-overlay").transition('scale')
             $(".k-overlay").next().transition('scale')
         }
-    })
+    });
 })
 
 function openMedia(title, jsonLink, dir, ppInput){
@@ -552,4 +564,20 @@ function selectedImage(j){
 
     mediazInput.parent().find("img").attr("src", j.attr("src"));
     $(".ui.modal.mediaz").modal('hide');
+}
+
+function groupsDropDownEditor(container, options) {
+    $('<input required data-text-field="group_name" data-value-field="group_id" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({ autoBind: false, dataSource: groupDs
+        });
+}
+
+function getGroupName(user_group){
+    if(user_group === 0)
+        return "";
+    else{
+        try{return groupDs.get(user_group).group_name} catch(e){return {group_name: "default", group_id: 1}}
+    }
+
 }

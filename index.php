@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="css/my.css"/>
 
     <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="kendojs/jszip.min.js"></script>
+    <script src="kendojs/pako_deflate.min.js"></script>
     <script src="kendojs/kendo.all.min.js"></script>
     <script src="dist/semantic.js"></script>
 
@@ -25,6 +27,7 @@
         var cartItems = new Array();
         var settings = {"fullscreen" : false}
         var clientsGridLoaded = false;
+        var groupsGridLoaded = false;
         // culture
         kendo.culture("en-PH");
     </script>
@@ -33,6 +36,7 @@
     <script src="js/productSearchBlock.js"></script>
     <script src="js/checkoutBlock.js"></script>
     <script src="js/cartBlock.js"></script>
+    <script src="js/groupsGrid.js"></script>
     <!-- PAGES -->
     <script src="js/clientsPage.js"></script>
     <!-- JS FUNCTION -->
@@ -42,15 +46,26 @@
 </head>
 <body>
 <div class="ui menu pointing inverted" id="mainMenu">
-    <a class="active item">
-        <i class="dashboard icon"></i> Dashboard
+    <a class="active item theMainMenu">
+        <i class="dashboard icon"></i> <span>Dashboard</span>
     </a>
-    <a class="item" onclick="toggleFullScreen()">
-        <i class="desktop icon"></i> Point of Sale
+    <a class="item theMainMenu" onclick="toggleFullScreen()">
+        <i class="desktop icon"></i> <span>Point of Sale</span>
     </a>
-    <a class="item" onclick="loadClients()">
-        <i class="users icon"></i> Clients
+    <a class="item theMainMenu" onclick="loadClients()">
+        <i class="user icon"></i> <span>Clients</span> <i class="dropdown icon"></i>
     </a>
+    <div class="ui flowing popup inverted">
+        <div class="ui selection list inverted animated">
+            <div class="item" onclick="loadGroups()">
+                <i class="users icon"></i>
+                <div class="content">
+                    <div class="header">Groups</div>
+                    <div class="description">Categorized clients by <i>groups</i></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="right menu">
         <div class="item">
             <div class="ui inverted icon input">
@@ -230,7 +245,7 @@
 <div id="usersPage" class="menuPage dn">
     <div class="ui grid horizontally padded">
         <div class="sixteen wide column">
-            <div class="ui segment" style="height: 100%">
+            <div class="ui segment" style="height: 100%; margin-bottom: 40px;">
                 <div id="clientsGrid"></div>
             </div>
         </div>
@@ -415,6 +430,16 @@
 
 <!-- MODALS -->
 
+<div class="ui modal groups small">
+    <i class="close icon"></i>
+    <div class="header">
+        Client Groups
+    </div>
+    <div class="content">
+        <div id="groupsGrid"></div>
+    </div>
+</div>
+
 <div class="ui modal mediaz">
     <i class="close icon"></i>
     <div class="header" id="media-title">
@@ -430,7 +455,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="ui modal small payment">
@@ -477,15 +501,6 @@
 
 <!-- END MODALS -->
 
-<script>
 
-</script>
-
-
-<script>
-
-
-
-</script>
 </body>
 </html>

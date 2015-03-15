@@ -17,7 +17,7 @@ function menuPageSelected(page){
 
 $(document).ready(function(){
     $('.menu a.item').on('click', function() {
-        if(!$(this).hasClass('dropdown')) {
+        if($(this).hasClass('theMainMenu')) {
 
 
             if($(this).parent().attr("id") == "mainMenu"){
@@ -31,4 +31,16 @@ $(document).ready(function(){
             $(this).addClass('active').closest('.ui.menu').find('.item').not($(this)).removeClass('active');
         }
     });
+
+    $('.menu a.item')
+        .popup({
+            inline   : true,
+            hoverable: true,
+            position : 'bottom left',
+            delay: {
+                show: 300,
+                hide: 800
+            }
+        })
+    ;
 });

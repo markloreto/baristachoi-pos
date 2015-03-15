@@ -149,3 +149,11 @@ html, body{
 #mediazListView {
     border: none
 }
+
+.k-grid {
+    font-family: "DejaVu Sans", "Arial", sans-serif;
+}
+
+div.k-window-content{
+    overflow: visible;
+}
