@@ -444,7 +444,75 @@ function profilePhoto(img){
 
 
 /* Media Code*/
+function openMedia(title, jsonLink, dir, ppInput){
+    $("#media-title").html(title);
+    var data = $("#mediazFiles").data("kendoUpload")
+    saveUrl = data.options.async.saveUrl;
+    theDir = saveUrl.slice(0, saveUrl.lastIndexOf("dir=")+4) + dir
+    data.options.async.saveUrl = theDir;
+    photosJSON = jsonLink;
+    mediazInput = ppInput;
+    $.getJSON(jsonLink, function (entry) {
+        mediazDs.fetch(function () {
+            mediazDs.data(entry);
+
+            $('.profile-photo2 img').popup();
+        })
+    });
+
+}
+
+function removeImage(j){
+    j.next().popup("destroy")
+    var img = j.next().attr("src");
+    j.parent().parent().transition({
+        animation  : 'scale',
+        duration   : '1s',
+        onComplete : function() {
+            $.post("data/uploadImages.php?type=remove&filename="+img, function () {
+                $.getJSON(photosJSON, function (entry) {
+                    mediazDs.fetch(function () {
+                        mediazDs.data(entry);
+                        $('.profile-photo2 img').popup();
+                    })
+                });
+            });
+        }
+    })
+
+}
+
+function selectedImage(j){
+    setTimeout(function () {
+        mediazInput.val(j.attr("src"))
+        mediazInput.change()
+    },500)
+
+
+    mediazInput.parent().find("img").attr("src", j.attr("src"));
+    $(".ui.modal.mediaz").modal('hide');
+}
+
+function groupsDropDownEditor(container, options) {
+    $('<input required data-text-field="group_name" data-value-field="group_id" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDropDownList({ autoBind: false, dataSource: groupDs
+        });
+}
+
+function getGroupName(user_group){
+    if(user_group === 0)
+        return "";
+    else{
+        try{return groupDs.get(user_group).group_name} catch(e){return {group_name: "default", group_id: 1}}
+    }
+
+}
+
+
+
 $(document).ready(function () {
+
     $('.ui.modal.groups').modal('hide dimmer').modal({
         closable: false,
         onShow: function () {
@@ -516,68 +584,3 @@ $(document).ready(function () {
         }
     });
 })
-
-function openMedia(title, jsonLink, dir, ppInput){
-    $("#media-title").html(title);
-    var data = $("#mediazFiles").data("kendoUpload")
-    saveUrl = data.options.async.saveUrl;
-    theDir = saveUrl.slice(0, saveUrl.lastIndexOf("dir=")+4) + dir
-    data.options.async.saveUrl = theDir;
-    photosJSON = jsonLink;
-    mediazInput = ppInput;
-    $.getJSON(jsonLink, function (entry) {
-        mediazDs.fetch(function () {
-            mediazDs.data(entry);
-
-            $('.profile-photo2 img').popup();
-        })
-    });
-
-}
-
-function removeImage(j){
-    j.next().popup("destroy")
-    var img = j.next().attr("src");
-    j.parent().parent().transition({
-        animation  : 'scale',
-        duration   : '1s',
-        onComplete : function() {
-            $.post("data/uploadImages.php?type=remove&filename="+img, function () {
-                $.getJSON(photosJSON, function (entry) {
-                    mediazDs.fetch(function () {
-                        mediazDs.data(entry);
-                        $('.profile-photo2 img').popup();
-                    })
-                });
-            });
-        }
-    })
-
-}
-
-function selectedImage(j){
-    setTimeout(function () {
-        mediazInput.val(j.attr("src"))
-        mediazInput.change()
-    },500)
-
-
-    mediazInput.parent().find("img").attr("src", j.attr("src"));
-    $(".ui.modal.mediaz").modal('hide');
-}
-
-function groupsDropDownEditor(container, options) {
-    $('<input required data-text-field="group_name" data-value-field="group_id" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDropDownList({ autoBind: false, dataSource: groupDs
-        });
-}
-
-function getGroupName(user_group){
-    if(user_group === 0)
-        return "";
-    else{
-        try{return groupDs.get(user_group).group_name} catch(e){return {group_name: "default", group_id: 1}}
-    }
-
-}

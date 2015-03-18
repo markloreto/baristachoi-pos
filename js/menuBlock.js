@@ -27,6 +27,8 @@ $(document).ready(function(){
                     menuPageSelected("dashboardPage")
                 if($.trim($(this).text()) == "Clients" && !$(this).hasClass("active"))
                     menuPageSelected("usersPage")
+                if($.trim($(this).text()) == "Products / Inventory" && !$(this).hasClass("active"))
+                    menuPageSelected("productsPage")
             }
             $(this).addClass('active').closest('.ui.menu').find('.item').not($(this)).removeClass('active');
         }

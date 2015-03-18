@@ -10,9 +10,9 @@ $db = new PDO('sqlite:..//database.db');
 
 $arr=[];
 $subArray = array();
-$i = 1;
+$i = 0;
 
-$result = $db->prepare("SELECT barangays.`name` AS `Barangay Name`, municipalities.`name` AS `Municipality Name` FROM barangays, municipalities WHERE barangays.`name` LIKE '%".mysql_real_escape_string($_GET['q'])."%' AND barangays.municipality_id = municipalities.id ORDER BY barangays.`name` LIMIT 0, 30");
+$result = $db->prepare("SELECT barangays.`name` AS `Barangay Name`, municipalities.`name` AS `Municipality Name` FROM barangays, municipalities WHERE barangays.`name` LIKE '%".mysql_real_escape_string($_GET['q'])."%' AND barangays.municipality_id = municipalities.id ORDER BY municipalities.`name` ASC LIMIT 0, 1000");
 $result->execute();
 
 $group = array();
@@ -25,20 +25,14 @@ foreach ( $result as $value ) {
 
 foreach ($group AS $name => $value){
 	unset($subArray);
+	$name = ucwords(strtolower($name));
 	foreach($value AS $a => $b){
-		$subArray[] = array("title" => $b["Barangay Name"], "description" => "test");
+		$subArray[] = array("title" => $b["Barangay Name"], "description" => "", "municipal" => $name);
 	}
 	$arr["category".$i] = array("name" => $name, "results" => $subArray);
 	$i++;
 }
 
-/*foreach($result as $row){
-	$municipal = ucwords(strtolower($row["Municipality Name"]));
-	//$arr[]=array("category".$i => $municipal.", ".$row["Barangay Name"]);
-	$arr[]=array("category".$i => array("name" => $municipal, results => array("title" => $row["Barangay Name"])));
-	$i++;
-}
-*/
 
-echo json_encode(array("results" => $arr));
+echo json_encode(array("results" => $arr/*, "action" => array("url" => "/path/to/results", "text" => "View all 202 results")*/));
 ?>

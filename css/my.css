@@ -20,7 +20,6 @@ html, body{
 .dn {display: none}
 
 #categoryButtons div.button {
-    margin-bottom: 15px;
     width: 100%;
 }
 
@@ -157,3 +156,13 @@ html, body{
 div.k-window-content{
     overflow: visible;
 }
+
+/* Fixes */
+.ui.category.search > .results .category > .name{
+    width: 250px;
+}
+
+.ui.category.search > .results .category .result{
+    margin-left: 280px;
+}
+/* */

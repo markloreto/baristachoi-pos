@@ -79,15 +79,45 @@ function loadClients(){
                 { field:"user_barangay", title: "Barangay",
                     editor: function(container, options) {
                         // create an input element
-                        var input = $('<div class="ui category search focus fluid"/>');
-                        input.html('<div class="ui icon input"><input class="prompt" type="text" placeholder="Search animals..." autocomplete="off" name="'+options.field+'" style="width: auto"><i class="search icon"></i></div><div class="results"></div>')
+                        var input = $('<div class="ui category search focus" id="brgySearch"/>');
+                        input.html('<div class="ui icon input medium"><input class="prompt" type="text" placeholder="Search Barangays..." autocomplete="off" name="'+options.field+'" style="width: auto"><i class="search icon"></i></div><div class="results"></div>')
                         // set its name to the field to which the column is bound ('name' in this case)
-
+                        var timer;
                         input.search({
                             apiSettings: {
                                 url: 'data/barangays.php?q={query}'
                             },
-                            type: 'category'
+                            searchDelay: 500,
+                            type: 'category',
+                            onSelect: function(a,b){
+                                var text = input.find(".category .result.active").parent().find("div.name").text();
+                                if(text != ""){
+                                    setTimeout(function () {
+                                        var val = input.find("input").val()
+                                        input.find("input").val(val + ", " + text)
+                                        input.find("input").change()
+                                    },100)
+
+                                }
+
+                            },
+                            onResultsAdd: function(){
+                                try{
+                                    clearTimeout(timer)
+                                }
+                                catch(e){}
+                                timer = setTimeout(function () {
+                                    input.find(".category .result").click(function () {
+                                        var text = $(this).parent().find("div.name").text();
+                                        setTimeout(function () {
+                                            var val = input.find("input").val()
+                                            input.find("input").val(val + ", " + text)
+                                            input.find("input").change()
+                                        },100)
+                                    })
+                                },1000)
+
+                            }
                         })
 
                         input.appendTo(container);

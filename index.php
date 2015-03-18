@@ -11,14 +11,14 @@
 
     <link rel="stylesheet" type="text/css" href="kendostyles/kendo.common.min.css"/>
     <link rel="stylesheet" type="text/css" href="kendostyles/kendo.uniform.min.css"/>
-    <link rel="stylesheet" type="text/css" href="dist/semantic.css"/>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/my.css"/>
 
     <script src="js/jquery-2.1.3.min.js"></script>
     <script src="kendojs/jszip.min.js"></script>
     <script src="kendojs/pako_deflate.min.js"></script>
     <script src="kendojs/kendo.all.min.js"></script>
-    <script src="dist/semantic.js"></script>
+    <script src="dist/semantic.min.js"></script>
 
     <script src="kendojs/cultures/kendo.culture.en-PH.min.js"></script>
 
@@ -64,8 +64,25 @@
                     <div class="description">Categorized clients by <i>groups</i></div>
                 </div>
             </div>
+            <div class="item" onclick="">
+                <i class="alarm outline icon"></i>
+                <div class="content">
+                    <div class="header">Client Reminder</div>
+                    <div class="description">Manage Reminders</div>
+                </div>
+            </div>
+            <div class="item" onclick="">
+                <i class="exchange icon"></i>
+                <div class="content">
+                    <div class="header">Transfer Account</div>
+                    <div class="description">Merge Clients into one</div>
+                </div>
+            </div>
         </div>
     </div>
+    <a class="item theMainMenu" onclick="loadProducts()">
+        <i class="Archive icon"></i> <span>Products / Inventory</span> <i class="dropdown icon"></i>
+    </a>
     <div class="right menu">
         <div class="item">
             <div class="ui inverted icon input">
@@ -96,45 +113,17 @@
                         Or
                     </div>
                     <div>
-                        <div align="right" style="float: left; width: 28%" id="categoryButtons">
-                            <div class="ui animated button">
-                                <div class="visible content">All Products</div>
-                                <div class="hidden content">
-                                    <i class="right arrow icon"></i>
-                                </div>
-                            </div>
-                            <div class="ui animated button">
-                                <div class="visible content">Featured Products</div>
-                                <div class="hidden content">
-                                    <i class="right arrow icon"></i>
-                                </div>
-                            </div>
-                            <div class="ui animated button">
-                                <div class="visible content">Machines</div>
-                                <div class="hidden content">
-                                    <i class="right arrow icon"></i>
-                                </div>
-                            </div>
-                            <div class="ui animated button">
-                                <div class="visible content">Powders</div>
-                                <div class="hidden content">
-                                    <i class="right arrow icon"></i>
-                                </div>
-                            </div>
-                            <div class="ui animated button">
-                                <div class="visible content">Parts</div>
-                                <div class="hidden content">
-                                    <i class="right arrow icon"></i>
-                                </div>
-                            </div>
-                            <div class="ui animated button">
-                                <div class="visible content">Misc</div>
-                                <div class="hidden content">
-                                    <i class="right arrow icon"></i>
-                                </div>
+                        <div style="float: left; width: 21%" id="categoryButtons">
+                            <div class="ui vertical buttons">
+                                <div class="ui button">All Products</div>
+                                <div class="ui button">Featured Products</div>
+                                <div class="ui button">Machines</div>
+                                <div class="ui button">Powders</div>
+                                <div class="ui button">Parts</div>
+                                <div class="ui button">Misc</div>
                             </div>
                         </div>
-                        <div style="float: right; width: 70%">
+                        <div style="float: right; width: 78%">
 
                             <div id="productlistView"></div>
                             <div id="productListPager" class="k-pager-wrap"></div>
@@ -247,6 +236,16 @@
         <div class="sixteen wide column">
             <div class="ui segment" style="height: 100%; margin-bottom: 40px;">
                 <div id="clientsGrid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="productsPage" class="menuPage dn">
+    <div class="ui grid horizontally padded">
+        <div class="sixteen wide column">
+            <div class="ui segment" style="height: 100%; margin-bottom: 40px;">
+                <div id="productsListViewMain"></div>
             </div>
         </div>
     </div>
