@@ -225,7 +225,7 @@ function calcTotal(){
     if(grandTotal != calcGrantTotal )
         $("#grandTotal").parents(".input").transition({
             animation  : 'jiggle',
-            duration   : 300,
+            duration   : 1000,
             queue      : false,
         })
 
@@ -445,6 +445,7 @@ function profilePhoto(img){
 
 /* Media Code*/
 function openMedia(title, jsonLink, dir, ppInput){
+    $(".ui.modal.mediaz").modal('show');
     $("#media-title").html(title);
     var data = $("#mediazFiles").data("kendoUpload")
     saveUrl = data.options.async.saveUrl;
@@ -514,6 +515,16 @@ function getGroupName(user_group){
 $(document).ready(function () {
 
     $('.ui.modal.groups').modal('hide dimmer').modal({
+        closable: false,
+        onShow: function () {
+
+        },
+        onHide: function(){
+
+        }
+    });
+
+    $('#productCategoriesModal').modal('hide dimmer').modal({
         closable: false,
         onShow: function () {
 

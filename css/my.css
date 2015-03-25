@@ -17,6 +17,13 @@ html, body{
 
 }
 
+.bottomMenu{
+    z-index: 101;
+    margin: 0;
+    border: none;
+    width: 100%;
+}
+
 .dn {display: none}
 
 #categoryButtons div.button {

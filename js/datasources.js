@@ -289,16 +289,33 @@ var groupDs = new kendo.data.DataSource({
 });
 groupDs.read();
 
-
-// Products with filtering
-var productsDs = new kendo.data.DataSource({
-    pageSize: 6,
+// Product Categories Datasource
+var dataProductCategories = "data/productCategories.php?";
+var productCategoriesDs = new kendo.data.DataSource({
+    batch: true,
+    pageSize: 5,
+    serverPaging: true,
     serverFiltering: true,
     transport: {
-        read: {
-            url: "data/products.php",
+        read:  {
+            url: dataProductCategories + "type=read",
             dataType: "json",
-            type: "post",
+            type: "post"
+        },
+        update: {
+            url: dataProductCategories + "type=update",
+            dataType: "json",
+            type: "post"
+        },
+        destroy: {
+            url: dataProductCategories + "type=destroy",
+            dataType: "json",
+            type: "post"
+        },
+        create: {
+            url: dataProductCategories + "type=create",
+            dataType: "json",
+            type: "post"
         },
         parameterMap: function(data) {
             return kendo.stringify(data);
@@ -306,37 +323,49 @@ var productsDs = new kendo.data.DataSource({
     },
     schema: {
         data: function(response) {
-            return response.data;
+            return response.data; // twitter's response is { "results": [ /* results */ ] }
         },
         model: {
-            id: "product_id",
+            id: "category_id",
             fields: {
-                product_id: {
-                    type: "number",
-                },
-                product_price: {
-                    type: "number",
-                },
-                product_cost: {
-                    type: "number",
-                },
-                product_stock: {
-                    type: "number",
-                },
+                category_name: { type: "string", validation: {required: true}},
             }
+        },
+        total: function(response){
+            return response.total;
         }
     }
 });
 
-// Products without filtering
-var productsDs2 = new kendo.data.DataSource({
-    pageSize: 12,
+productCategoriesDs.read();
 
+
+// Products with filtering
+var dataProducts = "data/products.php?";
+var productsDs = new kendo.data.DataSource({
+    pageSize: 12,
+    serverFiltering: true,
+    batch: true,
     transport: {
-        read: {
-            url: "data/products.php",
+        read:  {
+            url: dataProducts + "type=read",
             dataType: "json",
-            type: "post",
+            type: "post"
+        },
+        update: {
+            url: dataProducts + "type=update",
+            dataType: "json",
+            type: "post"
+        },
+        destroy: {
+            url: dataProducts + "type=destroy",
+            dataType: "json",
+            type: "post"
+        },
+        create: {
+            url: dataProducts + "type=create",
+            dataType: "json",
+            type: "post"
         },
         parameterMap: function(data) {
             return kendo.stringify(data);
@@ -349,8 +378,14 @@ var productsDs2 = new kendo.data.DataSource({
         model: {
             id: "product_id",
             fields: {
-                product_id: {
-                    type: "number"
+                product_name: {
+                    type: "string"
+                },
+                product_description: {
+                    type: "string"
+                },
+                product_image: {
+                    type: "string"
                 },
                 product_price: {
                     type: "number"
@@ -360,11 +395,22 @@ var productsDs2 = new kendo.data.DataSource({
                 },
                 product_stock: {
                     type: "number"
+                },
+                product_category: {
+                    type: "number"
+                },
+                product_rating: {
+                    type: "number",
+                    defaultValue: 0
                 }
             }
+        },
+        total: function(response){
+            return response.total;
         }
     }
 });
+
 
 var mediazDs = new kendo.data.DataSource({
     data: [],

@@ -34,11 +34,11 @@ function loadClients(){
                         input.attr("name", options.field).attr("type", "hidden").attr("value", img)
 
                         photo.attr("src", img).attr("class", "profile-photo").attr("width", 80).attr("height", 80).click(function () {
-                            $(".ui.modal.mediaz").modal('show');
+                            openMedia("Profile Photos", "data/profilePics.php", "profile", $(this).parent().find("input"))
+
                             $(".k-overlay").transition('scale')
                             $(".k-overlay").next().transition('scale');
 
-                            openMedia("Profile Photos", "data/profilePics.php", "profile", $(this).parent().find("input"))
                         }).load(function () {
                             $(this).parent().find("input").val(img);
                             $(this).parent().find("input").change()

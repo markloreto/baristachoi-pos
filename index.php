@@ -28,6 +28,8 @@
         var settings = {"fullscreen" : false}
         var clientsGridLoaded = false;
         var groupsGridLoaded = false;
+        var productsListViewLoaded = false;
+        var productsGridLoaded = false
         // culture
         kendo.culture("en-PH");
     </script>
@@ -37,8 +39,10 @@
     <script src="js/checkoutBlock.js"></script>
     <script src="js/cartBlock.js"></script>
     <script src="js/groupsGrid.js"></script>
+    <script src="js/productCategoriesGrid.js"></script>
     <!-- PAGES -->
     <script src="js/clientsPage.js"></script>
+    <script src="js/productsPage.js"></script>
     <!-- JS FUNCTION -->
     <script src="js/datasources.js"></script>
     <script src="js/fullsreen.js"></script>
@@ -60,7 +64,7 @@
             <div class="item" onclick="loadGroups()">
                 <i class="users icon"></i>
                 <div class="content">
-                    <div class="header">Groups</div>
+                    <div class="header">Groups Manager</div>
                     <div class="description">Categorized clients by <i>groups</i></div>
                 </div>
             </div>
@@ -81,8 +85,19 @@
         </div>
     </div>
     <a class="item theMainMenu" onclick="loadProducts()">
-        <i class="Archive icon"></i> <span>Products / Inventory</span> <i class="dropdown icon"></i>
+        <i class="archive icon"></i> <span>Products / Inventory</span> <i class="dropdown icon"></i>
     </a>
+    <div class="ui flowing popup inverted">
+        <div class="ui selection list inverted animated">
+            <div class="item" onclick="loadProductCategories()">
+                <i class="tags icon"></i>
+                <div class="content">
+                    <div class="header">Category Manager</div>
+                    <div class="description">Manage Product Categories</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="right menu">
         <div class="item">
             <div class="ui inverted icon input">
@@ -245,14 +260,17 @@
     <div class="ui grid horizontally padded">
         <div class="sixteen wide column">
             <div class="ui segment" style="height: 100%; margin-bottom: 40px;">
-                <div id="productsListViewMain"></div>
+                <div class="demo-section k-header">
+                    <div id="productsToolbar"></div>
+                </div>
+                <div id="productsListViewMain" class="ui grid" style="margin-top: 20px"></div>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="ui icon menu mini bottom fixed yellow">
+<div class="ui icon menu mini bottom fixed yellow bottomMenu">
 
     <a class="red item">
         v5.10
@@ -425,9 +443,151 @@
 
 </script>
 
+<script type="text/x-kendo-tmpl" id="productsTpl">
+
+    <div class="two wide column">
+
+        <div class="ui special card #: colorLevel(data.product_stock) # cardProductItem">
+            <div class="dimmable image">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <div class="ui buttons tiny">
+                                <div class="ui button positive k-edit-button"><i class="edit icon"></i>Edit</div>
+                                <div class="or"></div>
+                                <div class="ui button negative k-delete-button"><i class="remove icon"></i>Remove</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="#= data.product_image #">
+            </div>
+
+            <div class="content">
+                <div class="header">
+                #= data.product_name #
+
+                </div>
+                <div class="meta">
+                    #= data.product_description #
+                </div>
+                <div style="margin-top: 10px">
+                    <a class="ui #: colorLevel(data.product_stock) # label">#: data.product_stock #</a> #: add_S(data.product_unit_name, data.product_stock) # left
+                </div>
+            </div>
+            <div class="extra content">
+                <span class="ui left floated star rating" data-max-rating="3" data-rating="#: data.product_rating #" data-id="#: data.product_id #">
+
+                </span>
+                <span class="ui label tag right floated medium">#: moneyIt(data.product_price) #</span>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+<script type="text/x-kendo-tmpl" id="productsEditTpl">
+    <div class="two wide column" style="">
+        <div style="position:absolute; z-index: 9999999; border: 4px solid black; left: -15px; border-radius: 5px; top:-10px; margin-bottom: 50px">
+            <div class="ui special card #: colorLevel(data.product_stock) # cardProductItemEdit">
+                <div class="dimmable image">
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <div class="ui button prodImageEdit">
+                                    Edit Photo
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" data-bind="value:product_image" name="product_image" required="required" validationMessage="required">
+                    <img src="#= data.product_image #" class="prodProdImg">
+                </div>
+
+                <div class="content">
+                    <form class="ui form">
+                        <div class="center" align="center">
+                            <input type="hidden" data-bind="value:product_rating" name="product_rating">
+                            <span class="ui star rating" data-max-rating="3" data-rating="#: data.product_rating #"></span>
+                        </div>
+                        <div class="field">
+                            <label>Product Name</label>
+                            <div class="ui corner labeled input fluid small">
+                                <input type="text" placeholder="Product Name" data-bind="value:product_name" name="product_name" required="required" validationMessage="required">
+                                <div class="ui corner label">
+                                    <i class="asterisk icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span data-for="product_name" class="k-invalid-msg"></span>
+                        <div class="field">
+                            <label>Product Description</label>
+                            <textarea style="width: 88%; height: auto; min-height: 0px" placeholder="Description" data-bind="value:product_description" name="product_description" required="required" validationMessage="required" rows="2"></textarea>
+                        </div>
+                        <span data-for="product_description" class="k-invalid-msg"></span>
+                        <div class="field">
+                            <label>Stocks / Inventory</label>
+                            <div class="ui right labeled input small">
+                                <input type="text" placeholder="Stocks" data-bind="value:product_stock" name="product_stock" required="required" validationMessage="required">
+                                <div class="ui dropdown item label">
+                                    <input type="hidden" data-bind="value:product_unit_name" name="product_unit_name" required="required" validationMessage="required">
+                                    <div class="default text">unit</div>
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <div class="item" data-value="unit" data-text="unit">unit</div>
+                                        <div class="item" data-value="kg" data-text="kg">kg</div>
+                                        <div class="item" data-value="lb" data-text="lb">lb</div>
+                                        <div class="item" data-value="pc" data-text="pc">pc</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span data-for="product_stock" class="k-invalid-msg"></span>
+                        <div class="field">
+                            <label>Category</label>
+                            <input data-bind="value:product_category" name="product_category" required="required" validationMessage="required" style="width:100%"/>
+                        </div>
+                        <span data-for="product_category" class="k-invalid-msg"></span>
+                        <div class="field">
+                            <label>Cost</label>
+                            <input data-bind="value:product_cost" name="product_cost" required="required" validationMessage="required" style="width:100%; padding: 0px; border: none"/>
+                        </div>
+                        <span data-for="product_cost" class="k-invalid-msg"></span>
+                        <div class="field">
+                            <label>Price</label>
+                            <input data-bind="value:product_price" name="product_price" required="required" validationMessage="required" style="width:100%; padding: 0px; border: none"/>
+                        </div>
+                        <span data-for="product_price" class="k-invalid-msg"></span>
+                    </form>
+                </div>
+                <div class="extra content">
+                    <div class="center" align="center">
+                        <div class="ui buttons mini">
+                            <div class="ui button positive k-update-button"><i class="edit icon"></i>Save</div>
+                            <div class="or"></div>
+                            <div class="ui button negative k-cancel-button"><i class="remove icon"></i>Cancel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </script>
+
 <!-- TEMPLATE END-->
 
 <!-- MODALS -->
+
+<div class="ui modal small" id="productCategoriesModal">
+    <i class="close icon"></i>
+    <div class="header">
+        Product Categories
+    </div>
+    <div class="content">
+        <div id="productCategoriesGrid"></div>
+    </div>
+</div>
 
 <div class="ui modal groups small">
     <i class="close icon"></i>
@@ -499,7 +659,6 @@
 </div>
 
 <!-- END MODALS -->
-
 
 </body>
 </html>
