@@ -18,7 +18,8 @@ switch($type) {
         $result = $result->create('items', $columns, $request->models, 'item_id');
         break;
     case 'read':
-        $result = $result->read('items', $columns, $request);
+        //$result = $result->read('items', $columns, $request);
+        $result = $result->readJoin('items', 'products', $columns, 'item_product_id', 'product_id', 'product_name, product_price', $request);
         break;
     case 'update':
         $result = $result->update('items', $columns, $request->models, 'order_id');

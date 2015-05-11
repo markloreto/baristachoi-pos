@@ -18,8 +18,8 @@ function resize($width, $height, $dir){
 
     imagealphablending($tmp, false);
     imagesavealpha($tmp, true);
-    $transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
-    imagefilledrectangle($newImg, 0, 0, $width, $height, $transparent);
+    //$transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
+    //imagefilledrectangle($newImg, 0, 0, $width, $height, $transparent);
 
     imagecopyresampled($tmp, $image,
         0, 0,

@@ -2,10 +2,10 @@ function loadClients(){
     if(clientsGridLoaded == false){
         clientsGridLoaded = true;
 
-        userDs.filter({ field: "user_id", operator: "neq", value: 0 })
+        //userDs.filter({ field: "user_id", operator: "neq", value: 0 })
         $("#clientsGrid").kendoGrid({
             dataSource: userDs,
-            autoBind: false,
+            autoBind: true,
             pageable: true,
             filterable: {
                 mode: "row"
@@ -19,7 +19,7 @@ function loadClients(){
                 fileName: "Clients.pdf",
                 proxyURL: "http://demos.telerik.com/kendo-ui/service/export"
             },
-            toolbar: ["create", "excel", "pdf"],
+            toolbar: ["create", "excel", "pdf",{template: '<a class="k-button" href="\\#" onclick="userDs.filter([])">Clear Filters</a>'}],
             columns: [
                 { field:"user_photo", title: "Photo", template: "#= profilePhoto(data.user_photo) #", hidden: true,
                     editor: function(container, options) {
@@ -74,56 +74,12 @@ function loadClients(){
 
                     }
                 },
-                { field:"user_status", title: "Status" },
                 { field:"user_date", title: "Date Registered", format: "{0:D}" },
                 { field:"user_barangay", title: "Barangay",
-                    editor: function(container, options) {
-                        // create an input element
-                        var input = $('<div class="ui category search focus" id="brgySearch"/>');
-                        input.html('<div class="ui icon input medium"><input class="prompt" type="text" placeholder="Search Barangays..." autocomplete="off" name="'+options.field+'" style="width: auto"><i class="search icon"></i></div><div class="results"></div>')
-                        // set its name to the field to which the column is bound ('name' in this case)
-                        var timer;
-                        input.search({
-                            apiSettings: {
-                                url: 'data/barangays.php?q={query}'
-                            },
-                            searchDelay: 500,
-                            type: 'category',
-                            onSelect: function(a,b){
-                                var text = input.find(".category .result.active").parent().find("div.name").text();
-                                if(text != ""){
-                                    setTimeout(function () {
-                                        var val = input.find("input").val()
-                                        input.find("input").val(val + ", " + text)
-                                        input.find("input").change()
-                                    },100)
-
-                                }
-
-                            },
-                            onResultsAdd: function(){
-                                try{
-                                    clearTimeout(timer)
-                                }
-                                catch(e){}
-                                timer = setTimeout(function () {
-                                    input.find(".category .result").click(function () {
-                                        var text = $(this).parent().find("div.name").text();
-                                        setTimeout(function () {
-                                            var val = input.find("input").val()
-                                            input.find("input").val(val + ", " + text)
-                                            input.find("input").change()
-                                        },100)
-                                    })
-                                },1000)
-
-                            }
-                        })
-
-                        input.appendTo(container);
-                    }
+                    editor: brgyEditor
                 },
-                { command: ["edit", "destroy"], title: "&nbsp;"}],
+                { command: ["edit", "destroy"], title: "&nbsp;"}
+            ],
             editable: "popup",
             pageable: {
                 pageSize: 5,
@@ -132,12 +88,51 @@ function loadClients(){
             groupable: true,
             sortable: true,
             resizable: true,
-            reorderable: true
+            reorderable: true,
+            save: function(e) {
+                var dropdownlist = $("#userSearch").data("kendoComboBox");
+                var nametmp = dropdownlist.value()
+
+                if(e.model.user_id == nametmp && e.model.user_id != ""){
+                    loadClientFullInfo(nametmp)
+                }
+                try{
+                    var grid = $("#ordersGrid").data("kendoGrid");
+                    grid.refresh();
+
+                }catch(e){}
+
+            },
+            remove: function(e) {
+                if(e.model.user_id == 1){
+                    notification.show({
+                        subject: "Oh! not him!",
+                        message: "Anonymous is a protected client, please do not remove him",
+                        icon: "warning sign",
+                        color: "red"
+                    }, "message");
+                    e.preventDefault();
+                    userDs.read()
+                }
+                else{
+                    $.post("data/removeUser.php",{userId: e.model.user_id}, function () {
+                        logType = "Client Removed";
+                        logJson = {"Client ID" : e.model.user_id, "Client Name" : e.model.user_name}
+                        var grid = $("#logsGrid").data("kendoGrid");
+                        grid.addRow();
+                    })
+                }
+            },
+            dataBinding: function(e){
+                totalClientThisMonth()
+            },
+            detailTemplate: kendo.template($("#usersDetailTpl").html()),
+            detailInit: usersDetailInit
         });
 
 
     }
     else{
-        userDs.filter({ field: "user_id", operator: "neq", value: 0 })
+        //userDs.filter({ field: "user_id", operator: "neq", value: 0 })
     }
 }

@@ -11,7 +11,7 @@ $request = json_decode($request);
 $result = new DataSourceResult('sqlite:..//database.db');
 $type = $_GET['type'];
 
-$columns = array('product_id', 'product_name', 'product_image', 'product_stock', 'product_unit_name', 'product_price', 'product_cost', 'product_description', 'product_category', 'product_rating');
+$columns = array('product_id', 'product_name', 'product_image', 'product_stock', 'product_unit_name', 'product_price', 'product_cost', 'product_description', 'product_category', 'product_rating', 'product_points', 'product_redeem_points');
 
 switch($type) {
     case 'create':

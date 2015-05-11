@@ -11,7 +11,7 @@ $result = new DataSourceResult('sqlite:..//database.db');
 
 $type = $_GET['type'];
 
-$columns = array('user_id', 'user_name', 'user_photo', 'user_address', 'user_contact', 'user_group','user_barangay','user_status','user_date');
+$columns = array('user_id', 'user_name', 'user_photo', 'user_address', 'user_contact', 'user_group','user_barangay','user_status','user_date', 'user_points');
 
 switch($type) {
     case 'create':

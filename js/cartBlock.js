@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('.ui.checkbox').checkbox();
+    $('#deliveryChb').checkbox();
 
     $('.ui.modal.payment').modal('hide dimmer').modal({
         closable: false,
@@ -31,15 +31,34 @@ $(document).ready(function(){
     });
 
     $("#quickPay").click(function(){
-        if(itemsTotal){
-            $("#coOrderStatus").parent().removeClass("warning").removeClass("positive").removeClass("negative")
-            $("#paymentTable tr:not(:first)").hide();
-            $("#paymentTable tr:not(:first)").addClass("transition hidden");
-            $("#paymentTable tr:not(:first)").removeClass("visible")
-            $("#paymentTable tr:not(:first)").removeAttr("style")
-            $("#afterChkBtn").hide()
-            $("#afterChkBtn").removeClass("visible")
-            $('.ui.modal.payment').modal("show")
+        if(grandTotal > 0 || totalPayments > 0){
+            if(clientValueTmp == ""){
+                notification.show({
+                    subject: "Who's buying?",
+                    message: "Please enter the client information",
+                    icon: "help circle",
+                    color: "blue"
+                }, "message");
+            }
+            else{
+                $("#coOrderStatus").parent().removeClass("warning").removeClass("positive").removeClass("negative")
+                $("#paymentTable tr:not(:first)").hide();
+                $("#paymentTable tr:not(:first)").addClass("transition hidden");
+                $("#paymentTable tr:not(:first)").removeClass("visible")
+                $("#paymentTable tr:not(:first)").removeAttr("style")
+                $("#afterChkBtn").hide()
+                $("#afterChkBtn").removeClass("visible")
+                $('.ui.modal.payment').modal("show")
+            }
+
+        }
+        else{
+            notification.show({
+                subject: "Hey Buddy!",
+                message: "You do not have items in your cart.",
+                icon: "info circle",
+                color: "blue"
+            }, "message");
         }
     })
 

@@ -2,7 +2,6 @@
 require_once '../wrappers/php/lib/DataSourceResult.php';
 require_once '../wrappers/php/lib/Kendo/Autoload.php';
 
-
 header('Content-Type: application/json');
 $request = @file_get_contents('php://input');
 $request = json_decode($request);
@@ -18,7 +17,8 @@ switch($type) {
         $result = $result->create('orders', $columns, $request->models, 'order_id');
         break;
     case 'read':
-        $result = $result->read('orders', $columns, $request);
+        //$result = $result->read('orders', $columns, $request);
+        $result = $result->readJoin('orders', 'users', $columns, 'order_user_id', 'user_id', 'user_name', $request);
         break;
     case 'update':
         $result = $result->update('orders', $columns, $request->models, 'order_id');

@@ -12,8 +12,8 @@ $arr=[];
 $subArray = array();
 $i = 0;
 
-$result = $db->prepare("SELECT barangays.`name` AS `Barangay Name`, municipalities.`name` AS `Municipality Name` FROM barangays, municipalities WHERE barangays.`name` LIKE '%".mysql_real_escape_string($_GET['q'])."%' AND barangays.municipality_id = municipalities.id ORDER BY municipalities.`name` ASC LIMIT 0, 1000");
-$result->execute();
+$result = $db->prepare("SELECT barangays.`name` AS `Barangay Name`, municipalities.`name` AS `Municipality Name` FROM barangays, municipalities WHERE barangays.`name` LIKE :qu AND barangays.municipality_id = municipalities.id ORDER BY municipalities.`name` ASC LIMIT 0, 1000");
+$result->execute(array(':qu' => '%'.$_GET['q'].'%'));
 
 $group = array();
 

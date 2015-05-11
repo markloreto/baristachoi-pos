@@ -11,14 +11,20 @@ $(document).ready(function() {
         template: kendo.template($("#userSearchTpl").html()),
         dataSource: userDs,
         change: function(e) {
-            var value = this.value();
-            var dataItem = userDs.get(value);
-
-            var userDetailsTpl = $("#userDetailsTpl").html();
-            userDetailsTpl = userDetailsTpl.replace("[user_name]", dataItem.user_name).replace("[user_photo]", dataItem.user_photo).replace("[user_address]", dataItem.user_address)
-            $("#userDetails").html(userDetailsTpl)
+            loadClientFullInfo(this.value())
         }
     });
+
+    $("#userSearch").prev().find("input").focus(function () {
+        userDs.filter([])
+        userDs.fetch(function () {
+            var dropdownlist = $("#userSearch").data("kendoComboBox");
+            dropdownlist.value("")
+            orAddNewClient()
+            clientValueTmp = "";
+        })
+
+    })
 
     //datepicker
     $("#orderDate").kendoDatePicker({
@@ -31,11 +37,10 @@ $(document).ready(function() {
     // payments grid
     $("#paymentsGrid").kendoGrid({
         dataSource: paymentsBlank,
-        pageable: true,
         toolbar: ["create"],
         columns: [
             { field:"payment_date", title: "Date", width: "24%", format: "{0:MM/dd/yyyy}" },
-            { field: "payment_type", title:"Type", width: "18%", editor: function(container, options) {
+            { field: "payment_type", hidden: true, title:"Type", width: "18%", editor: function(container, options) {
                 // create an input element
                 var input = $("<input/>");
                 // set its name to the field to which the column is bound ('name' in this case)
@@ -72,5 +77,38 @@ $(document).ready(function() {
         }
     });
 
+    // fees grid
+    $("#feesGrid").kendoGrid({
+        dataSource: feesBlank,
+        autoBind: true,
+        toolbar: ["create"],
+        columns: [
+            { field: "fee_name", title:"Name", editor:
+                function(container, options){
+                    var input = $('<div class="ui search focus"/>');
+                    input.html('<div class="ui icon input small"><input required="required" class="prompt" type="text" placeholder="" autocomplete="off" name="'+options.field+'" style="width: auto"><i class="search icon"></i></div><div class="results"></div>')
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.search({
+                        apiSettings: {
+                            url: 'data/autoComplete.php?q={query}&table=fees&field=fee_name'
+                        },
+                        searchDelay: 500,
+                        onSelect: function(){
+                            setTimeout(function () {
+                                input.find("input").change()
+                            },100)
+                        }
+                    })
+
+                    input.appendTo(container);
+                }
+            },
+            { field: "fee_amount", title:"Amount", format: "{0:c}"},
+            { command: ["edit", "destroy"], title: "&nbsp;", width: "33%" }],
+        editable: "popup",
+        dataBound: function(e) {
+            calcTotalFees(this.dataSource.data())
+        }
+    });
     //paymentsDs.filter( { field: "payment_order_id", operator: "eq", value: "" });
 })

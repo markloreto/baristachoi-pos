@@ -34,6 +34,7 @@ document.addEventListener("webkitfullscreenchange", function () {
 }, false);
 
 function toggleFullScreen() {
+    clearProductFilters()
     if(!isFullScr && settings.fullscreen == true){
         if ((document.fullScreenElement && document.fullScreenElement !== null) ||
             (!document.mozFullScreen && !document.webkitIsFullScreen)) {

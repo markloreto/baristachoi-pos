@@ -268,8 +268,8 @@ class DataSourceResult {
             }
 
             if ($type == "date") {
-                $field = "date($field)";
-                $value = "date($value)";
+                $field = "DATE($field)";
+                $value = "DATE($value)";
             }
 
             if ($type == "string") {
@@ -536,12 +536,13 @@ class DataSourceResult {
         return $result;
     }
 
-    public function readJoin($table, $joinTable, $properties, $key, $column, $request = null) {
+    public function readJoin($table, $joinTable, $properties, $mainKey, $key, $column, $request = null) {
         $result = $this->read($table, $properties, $request);
+        //var_dump($request);
 
         for ($index = 0, $count = count($result['data']); $index < $count; $index++) {
-            $sql = sprintf('SELECT %s FROM %s WHERE %s = %s', $column, $joinTable, $key, $result['data'][$index][$key]);
-
+            $sql = sprintf('SELECT %s FROM %s WHERE %s = %s', $column, $joinTable, $key, $result['data'][$index][$mainKey]);
+            //echo $sql . "\n";
             $statement = $this->db->prepare($sql);
             $statement->execute();
             $data = $statement->fetchAll(PDO::FETCH_NUM);

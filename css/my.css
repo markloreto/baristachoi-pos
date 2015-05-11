@@ -12,6 +12,10 @@ html, body{
     float: right;
 }
 
+.onDrop{
+    border: 2px dashed #808080; width: 100%; height: 100%; border-radius: 5px; padding: 10px
+}
+
 .menuPage{
     background-color: rgba(207, 174, 123, 0.18);
 
@@ -103,6 +107,18 @@ html, body{
     color:red !important;
 }
 
+.greens{
+    color:green !important;
+}
+
+.cb{
+    clear: both;
+}
+
+.borderBottom{
+    border-bottom: 1px solid grey
+}
+
 #userDetails{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -121,7 +137,11 @@ html, body{
     cursor: pointer;
 }
 
-#paymentsGrid{
+.center-aligned{
+    text-align: center;
+}
+
+#paymentsGrid, #feesGrid, #totalFees, #totalPayments{
     margin-bottom: 10px;
 }
 
@@ -160,6 +180,10 @@ html, body{
     font-family: "DejaVu Sans", "Arial", sans-serif;
 }
 
+.mtop{
+    margin-top: 10px;
+}
+
 div.k-window-content{
     overflow: visible;
 }
@@ -171,5 +195,62 @@ div.k-window-content{
 
 .ui.category.search > .results .category .result{
     margin-left: 280px;
+}
+
+.thermal1, .thermal2, .thermal3{
+    display: none !important;
+}
+
+@media all and (max-width: 170px) {
+    .thermal2{
+        display: block !important;
+    }
+
+    body, .ui.header, .ui.table, .ui.table thead th, .ui.header .sub.header{
+        color: rgba(0,0,0,1) !important
+    }
+
+    .receiptMargin{
+        height: 50px; margin-top: 50px
+    }
+}
+
+@media all and (max-width: 165px) {
+    .thermal1{
+        display: block !important;
+    }
+
+    .thermal1 img{
+        width: 50%;
+        /*margin-bottom: 4px;*/
+    }
+
+    body{
+        font-size: 70% !important;
+    }
+
+    h2, h3, h4{
+        display: none;
+    }
+
+    body, .ui.header, .ui.table, .ui.table thead th, .ui.header .sub.header{
+        color: rgba(0,0,0,1) !important
+    }
+
+    .receiptMargin{
+        height: 50px; margin-top: 50px
+    }
+}
+
+@media all and (min-width: 480px) {
+    .thermal3{
+        display: inline-block !important;
+    }
+}
+
+@media print {
+    .bcPrintReport{
+        zoom: .6;
+    }
 }
 /* */
